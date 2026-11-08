@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CipherX1 Logistics — Agentic-AI Security</title>
+<meta name="description" content="Rust-native security & utility apps for logistics and finance. Local, private, non-custodial. Pay with card, XPR or METAL.">
+<style>
+  :root{
+    --spec:linear-gradient(115deg,#e60000 0%,#ff7a00 14%,#ffd500 28%,#00b140 44%,#00a7b5 58%,#0b3fd6 72%,#3a1bb0 84%,#6e0a0a 100%);
+    --bg:#000;--card:#0b0d11;--line:#1c2028;--ink:#f5f7fa;--dim:#8b93a1;--gold:#ffd60a;--ok:#30d158;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#000;color:var(--ink);font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.55;overflow-x:hidden}
+  body::before{content:"";position:fixed;top:0;left:0;right:0;height:3px;background:var(--spec);z-index:10}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+  /* hero */
+  header{text-align:center;padding:64px 18px 34px}
+  .logo{width:128px;height:128px;border-radius:30px;display:block;margin:0 auto 20px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  h1{font-size:34px;font-weight:900;letter-spacing:-.6px}
+  .brand{background:var(--spec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .tag{color:var(--dim);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-top:8px}
+  .lead{max-width:680px;margin:18px auto 0;color:#c9cdd6;font-size:17px}
+  .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+  .badge{border:1px solid var(--line);border-radius:999px;padding:8px 15px;font-size:13px;color:#cdd2db;background:#0a0c10}
+  .badge b{color:var(--gold)}
+  .pay{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;color:var(--dim);font-size:13px;align-items:center}
+  .pay span{border:1px solid var(--line);border-radius:8px;padding:6px 12px;background:#0a0c10;color:#dfe3ea}
+  .band{height:5px;border-radius:3px;background:var(--spec);max-width:1004px;margin:30px auto 0}
+  /* products */
+  .sec{padding:36px 0 10px}
+  .sec h2{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#cfd4de;text-align:center;margin-bottom:22px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--spec)}
+  .card .nm{font-size:21px;font-weight:800}
+  .card .sub{color:var(--dim);font-size:13px;margin-top:2px}
+  .card p{color:#dfe3ea;font-size:14.5px;margin-top:12px;flex:1}
+  .card .cta{margin-top:18px;display:inline-block;text-align:center;padding:12px;border-radius:999px;font-weight:700;color:#fff;background:var(--spec);text-decoration:none;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .tiny{font-size:12px;color:#6f7684;margin-top:10px}
+  /* footer */
+  footer{text-align:center;padding:40px 18px 54px;color:#6f7684;font-size:13px;margin-top:30px;border-top:1px solid var(--line)}
+  footer .mark{color:var(--gold);font-weight:700}
+  footer a{color:#9ac2ff;text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+  <img class="logo" src="icon.png" alt="CipherX1 Logistics">
+  <h1><span class="brand">CipherX1 Logistics</span></h1>
+  <div class="tag">Agentic-AI Security</div>
+  <p class="lead">Rust-native security &amp; utility apps for <b>logistics</b> and <b>finance</b>. Everything runs on your own machine — local, private, non-custodial. Nothing ever leaves your device.</p>
+  <div class="badges">
+    <span class="badge">🦀 <b>Rust-native</b></span>
+    <span class="badge">🔒 <b>Local &amp; private</b></span>
+    <span class="badge">🛡️ <b>Non-custodial</b></span>
+    <span class="badge">🤖 <b>Built for agentic AI</b></span>
+  </div>
+  <div class="pay">Accepted: <span>Card</span><span>XPR ⚛️</span><span>METAL Ⓜ️</span></div>
+</header>
+
+<div class="band"></div>
+
+<div class="wrap">
+  <section class="sec">
+    <h2>The Suite</h2>
+    <div class="grid">
+
+      <div class="card">
+        <div class="nm">Rust Matrix</div>
+        <div class="sub">Agent Mission Control · secure sandbox</div>
+        <p>Isolate autonomous AI agents and watch every move in real time — deny-by-default policy, tamper-evident audit chain, anomaly circuit-breaker, operator KILL. The control room for the agents running your business.</p>
+        <a class="cta" href="rust-matrix.html">Explore Rust Matrix →</a>
+      </div>
+
+      <div class="card">
+        <div class="nm">Bot Blockk</div>
+        <div class="sub">Local runtime firewall for AI agents</div>
+        <p>Stops an AI agent <b>before</b> it does something dangerous — a wallet drain, a key grab, a destructive command — with a loud <b>BOT BLOKKED</b> alert. Protects families, developers and agent fleets.</p>
+        <a class="cta" href="bot-blockk.html">Get Bot Blockk →</a>
+      </div>
+
+      <div class="card">
+        <div class="nm">PayShield</div>
+        <div class="sub">Invoice &amp; KYC scam checker</div>
+        <p>Checks every invoice, statement, receipt or KYC document on your machine. Seals it with SHA-256 and warns you the instant an account number — or crypto wallet — isn't the one you expected. Stop swap scams cold.</p>
+        <a class="cta" href="payshield.html">Get PayShield →</a>
+      </div>
+
+      <div class="card">
+        <div class="nm">CosmicRust</div>
+        <div class="sub">C/C++, COBOL, Go &amp; Python → Rust</div>
+        <p>An agent that translates legacy code into clean, modern Rust — bring old systems into a safe, fast, memory-secure future. For teams modernizing the stack behind logistics and finance.</p>
+        <a class="cta" href="cosmicrust.html">Explore CosmicRust →</a>
+      </div>
+
+    </div>
+    <p class="tiny" style="text-align:center">Each product runs 100% locally. Desktop today — phone &amp; tablet coming.</p>
+  </section>
+</div>
+
+<footer>
+  <div><span class="mark">CipherX1 Logistics</span> · Agentic-AI Security</div>
+  <div style="margin-top:8px">Local · Private · Non-custodial · Card / XPR ⚛️ / METAL Ⓜ️</div>
+  <div style="margin-top:8px">8 — Build or Destroy — peace · <a href="https://x.com/cipherx1llc">@cipherx1llc</a></div>
+</footer>
+</body>
+</html>

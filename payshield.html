@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PayShield — Stop invoice & routing scams</title>
+<style>
+  :root{
+    --spec:linear-gradient(115deg,#e60000 0%,#ff7a00 14%,#ffd500 28%,#00b140 44%,#00a7b5 58%,#0b3fd6 72%,#3a1bb0 84%,#6e0a0a 100%);
+    --bg:#000;--card:#0c0e12;--line:#20242b;--ink:#f5f7fa;--dim:#8b93a1;--up:#30d158;--down:#ff453a;--gold:#ffd60a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#000;color:var(--ink);font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;padding:28px 16px 48px}
+  .wrap{max-width:1000px;margin:0 auto}
+  .hero{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .wm{font-size:38px;font-weight:900;letter-spacing:-.5px;background:var(--spec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .tagline{font-size:14px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+  .lead{margin-top:14px;color:#c9cdd6;font-size:16px;line-height:1.55;max-width:780px}
+  .band{height:5px;border-radius:3px;background:var(--spec);margin:20px 0 10px}
+  .who{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 6px}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;color:#cdd2db;background:#0a0c10}
+  .chip b{color:var(--gold)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  @media(max-width:760px){.two{grid-template-columns:1fr}}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;overflow:hidden}
+  .box::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--spec)}
+  .box h3{font-size:16px;font-weight:800;margin-bottom:10px}
+  .box ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .box li{position:relative;padding-left:22px;font-size:14px;color:#dfe3ea;line-height:1.4}
+  .box li::before{content:"✓";color:var(--up);font-weight:800;position:absolute;left:0;top:0}
+  .tiers{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  @media(max-width:760px){.tiers{grid-template-columns:1fr}}
+  .tier{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+  .tier::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--spec)}
+  .tier.feat{box-shadow:0 0 0 1px rgba(255,214,10,.15),0 20px 50px rgba(0,0,0,.5)}
+  .badge{position:absolute;top:14px;right:14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#111;background:var(--gold);border-radius:999px;padding:4px 10px;font-weight:800}
+  .tname{font-size:21px;font-weight:800}
+  .tsub{font-size:13px;color:var(--dim);margin-top:3px;min-height:34px}
+  .price{font-size:30px;font-weight:800;margin:12px 0 2px}
+  .price span{font-size:15px;color:var(--dim);font-weight:600}
+  .settle{font-size:12px;color:var(--dim);margin-bottom:12px}
+  .tier ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:6px;flex:1}
+  .tier li{position:relative;padding-left:22px;font-size:14px;color:#dfe3ea;line-height:1.4}
+  .tier li::before{content:"✓";color:var(--up);font-weight:800;position:absolute;left:0;top:0}
+  .cta{margin-top:18px;text-align:center;padding:12px;border-radius:999px;font-weight:700;color:#fff;background:var(--spec);text-shadow:0 1px 2px rgba(0,0,0,.5);text-decoration:none;display:block}
+  .foot{margin-top:26px;font-size:12px;color:#6f6a84;line-height:1.6;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <svg width="92" height="96" viewBox="0 0 240 250" aria-hidden="true">
+      <path d="M120 18 L202 48 V118 C202 172 166 204 120 220 C74 204 38 172 38 118 V48 Z" fill="#141a24" stroke="#ffd60a" stroke-width="8" stroke-linejoin="round"/>
+      <g stroke="#0f3b22" stroke-width="2"><rect x="96" y="56" width="50" height="28" rx="4" fill="#53c884"/><text x="121" y="75" font-family="Arial" font-size="13" font-weight="800" fill="#0f3b22" text-anchor="middle">$</text></g>
+      <path d="M120 92 C 66 96, 54 150, 70 182 C 84 210, 156 210, 170 182 C 186 150, 174 96, 120 92 Z" fill="#ffd60a" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M96 92 q24 -14 48 0 q-6 10 -24 10 q-18 0 -24 -10 Z" fill="#e0a300" stroke="#141414" stroke-width="4"/>
+      <text x="120" y="176" font-family="Arial" font-size="78" font-weight="900" fill="#fbfbf2" stroke="#141414" stroke-width="4" paint-order="stroke" text-anchor="middle">$</text>
+    </svg>
+    <div><div class="wm">PayShield</div><div class="tagline">The Clear Check for Every Invoice</div></div>
+  </div>
+
+  <p class="lead">Fake invoices and swapped bank-routing numbers drain billions a year — a scammer changes one
+  number on a PDF and the money's gone. PayShield checks every invoice, statement, receipt, email, scanned check, image bill, HTML, CSV or vendor sheet
+  <b>right on your own machine</b>: it seals the file with un-forgeable SHA-256, scans it for scam signals,
+  and warns you the instant the account number — or crypto wallet — isn't the one you expected. One click. Nothing leaves your device. It even covers the documents you get <b>KYC'd</b> for — IDs, proof of address, pay stubs, tax forms — so you can seal and verify them locally before you ever upload them. Universal safety for everyday users, built to survive the great wealth transfer. <b>Nothing else does all of this.</b></p>
+
+  <div class="who">
+    <span class="chip">For <b>households &amp; freelancers</b></span>
+    <span class="chip">For <b>small businesses</b></span>
+    <span class="chip">For <b>privacy enthusiasts</b></span>
+    <span class="chip">For <b>crypto users</b></span>
+    <span class="chip">For <b>anyone doing KYC</b></span>
+    <span class="chip">For <b>teams running AI agents that pay</b></span>
+  </div>
+
+  <div class="band"></div>
+
+  <div class="two">
+    <div class="box">
+      <h3>Simple enough for anyone</h3>
+      <ul>
+        <li>Drop a file → instant "safe to pay" or "do not pay yet"</li>
+        <li>Type the routing number you expect — it warns on a swap</li>
+        <li>Verify a sender's seal to confirm nothing changed in transit</li>
+        <li>Plain-English warnings, a downloadable receipt, no jargon</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Hardened enough for the paranoid</h3>
+      <ul>
+        <li>Local-only — no cloud, no account, no telemetry</li>
+        <li>Documents wiped from memory after every check — nothing lingers in RAM</li>
+        <li>Real SHA-256 crypto seals + a compile-time integrity canary</li>
+        <li>Non-custodial payments — never holds your keys or funds</li>
+        <li>Optional YubiKey approval (hardware root of trust)</li>
+        <li>Catches swapped <b>crypto wallet</b> addresses (ETH/BTC), not just bank routing</li>
+        <li>Seal &amp; verify your <b>KYC</b> docs (ID, proof of funds) locally before uploading</li>
+        <li><b>Agent gate:</b> built for agentic AI — gates the <i>payment action</i>, not just LLM text</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tiers">
+    <div class="tier">
+      <div class="tname">PayShield Plus</div>
+      <div class="tsub">Household &amp; freelance</div>
+      <div class="price">$4<span>/month</span></div>
+      <div class="settle">card, debit/credit or XPR</div>
+      <ul>
+        <li>Seal + scan every incoming bill</li>
+        <li>Expected-number swap protection</li>
+        <li>Verify-a-seal for files you receive</li>
+        <li>Sign your outgoing invoices with a trust badge</li>
+        <li>100% local &amp; private</li>
+      </ul>
+      <a class="cta" href="https://buy.stripe.com/fZu6oI84oeB24Ia1NH0sU08">Get Plus — $4/mo →</a>
+      <a href="payshield-checkout.html" style="display:block;text-align:center;margin-top:8px;font-size:12px;color:#8b93a1;text-decoration:none">or pay with crypto (XPR) →</a>
+    </div>
+    <div class="tier feat">
+      <div class="badge">For business &amp; agents</div>
+      <div class="tname">PayShield Pro</div>
+      <div class="tsub">Small business &amp; developer SDK</div>
+      <div class="price">$17<span>/month</span></div>
+      <div class="settle">card, debit/credit or XPR</div>
+      <ul>
+        <li>Everything in Plus</li>
+        <li>Local folder-watching + bulk background processing</li>
+        <li>Agent-gate API to clear AI-initiated payments</li>
+        <li>Optional YubiKey approval on every release</li>
+        <li>SDK + the self-test endpoint</li>
+      </ul>
+      <a class="cta" href="https://buy.stripe.com/9B6cN60BWakM3E6dwp0sU09">Get Pro — $17/mo →</a>
+      <a href="payshield-checkout.html" style="display:block;text-align:center;margin-top:8px;font-size:12px;color:#8b93a1;text-decoration:none">or pay with crypto (XPR) →</a>
+    </div>
+  </div>
+
+  <div class="foot">
+    Pay by card / debit / credit (Stripe) or XPR (WebAuth) — non-custodial, funds go straight to CipherX1Logistics. Runs for the term you buy; renew anytime, no card kept on file.<br>
+    Every check runs on your machine. CipherX1Logistics · 8 — Build or Destroy — peace.
+  </div>
+</div>
+</body>
+</html>
