@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KeyGuardian — Runtime Key-Rotation Guard</title>
+<meta name="description" content="KeyGuardian protects your XPR Network accounts: the instant an unauthorized change is detected, it rotates your key to safety through a hardware root of trust and an M-of-N approval — non-custodial, bare-metal, post-quantum ready.">
+<style>
+  :root{
+    --bg:#000;--card:#0b0d11;--line:#1c2028;--ink:#f5f7fa;--dim:#8b93a1;--gold:#ffd60a;--ok:#30d158;--pq:#0a84ff;
+    --spec:linear-gradient(115deg,#e60000 0%,#ff7a00 14%,#ffd500 28%,#00b140 44%,#00a7b5 58%,#0b3fd6 72%,#3a1bb0 84%,#6e0a0a 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#000;color:var(--ink);font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.55;overflow-x:hidden}
+  body::before{content:"";position:fixed;top:0;left:0;right:0;height:3px;background:var(--spec);z-index:10}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+  header{text-align:center;padding:54px 18px 26px}
+  .logo{width:132px;height:132px;display:block;margin:0 auto 18px}
+  h1{font-size:34px;font-weight:900;letter-spacing:-.6px}
+  .brand{background:var(--spec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .tagl{color:var(--dim);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-top:8px}
+  .lead{max-width:680px;margin:16px auto 0;color:#c9cdd6;font-size:17px}
+  .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+  .badge{border:1px solid var(--line);border-radius:999px;padding:8px 15px;font-size:13px;color:#cdd2db;background:#0a0c10}
+  .badge b{color:var(--gold)}
+  .dlbar{max-width:1000px;margin:22px auto 0;padding:18px;background:var(--spec);border-radius:16px;text-align:center}
+  .dlbar a{display:inline-block;background:#000;color:#fff;font-weight:800;font-size:16px;padding:13px 24px;border-radius:999px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  .dlbar .n{color:#0a0a0a;font-weight:700;font-size:12.5px;margin-top:9px;letter-spacing:.3px}
+  .band{height:5px;border-radius:3px;background:var(--spec);max-width:964px;margin:30px auto 0}
+  .sec{padding:38px 0 8px}
+  .sec h2{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#cfd4de;text-align:center;margin-bottom:12px}
+  .mission{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 24px;position:relative;overflow:hidden}
+  .mission::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--spec)}
+  .mission p{color:#dfe3ea;font-size:16px;max-width:800px}
+  .mission p + p{margin-top:12px}
+  .mission b{color:#fff}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  @media(max-width:700px){.grid{grid-template-columns:1fr}}
+  .pr{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .pr h3{font-size:16px;font-weight:800;color:#fff}
+  .pr h3 span{margin-right:8px}
+  .pr p{color:#c2c7d0;font-size:14px;margin-top:6px}
+  .pr.pqc{border-color:rgba(10,132,255,.4)}
+  .pr.pqc h3 span{color:var(--pq)}
+  .steps{counter-reset:s;display:flex;flex-direction:column;gap:10px;margin-top:8px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 18px;display:flex;gap:14px;align-items:flex-start}
+  .step .n{font-family:'Inter';font-weight:900;font-size:18px;background:var(--spec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;flex:0 0 auto;width:26px;text-align:center}
+  .step .t b{color:#fff;font-size:15px}
+  .step .t p{color:#c2c7d0;font-size:13.5px;margin-top:3px}
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  @media(max-width:620px){.price{grid-template-columns:1fr}}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative;overflow:hidden}
+  .plan::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--spec)}
+  .plan .nm{font-size:19px;font-weight:800}
+  .plan .amt{font-family:'Inter';font-size:30px;font-weight:900;margin-top:8px}
+  .plan .amt small{font-size:14px;color:var(--dim);font-weight:600}
+  .plan ul{list-style:none;margin:14px 0 0;display:flex;flex-direction:column;gap:7px}
+  .plan li{color:#dfe3ea;font-size:14px;padding-left:20px;position:relative}
+  .plan li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+  .plan .cta{margin-top:16px;display:block;text-align:center;padding:12px;border-radius:999px;font-weight:700;color:#fff;background:var(--spec);text-decoration:none;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;color:#dfe3ea;background:#0a0c10}
+  .chip b{color:var(--gold)}
+  .close{text-align:center;padding:42px 18px 10px}
+  .close h2{font-size:24px;font-weight:900}
+  .close p{color:#c2c7d0;margin-top:10px;max-width:600px;margin-left:auto;margin-right:auto}
+  footer{text-align:center;padding:38px 18px 50px;color:#6f7684;font-size:13px;margin-top:30px;border-top:1px solid var(--line)}
+  footer .mark{color:var(--gold);font-weight:700}
+  footer a{color:#9ac2ff;text-decoration:none}
+  footer .legal{font-size:11px;color:#565c68;max-width:620px;margin:14px auto 0;line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <svg class="logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="KeyGuardian">
+    <defs>
+      <linearGradient id="spec" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e60000"/><stop offset="0.16" stop-color="#ff7a00"/><stop offset="0.32" stop-color="#ffd500"/><stop offset="0.5" stop-color="#00b140"/><stop offset="0.66" stop-color="#00a7b5"/><stop offset="0.82" stop-color="#0b3fd6"/><stop offset="1" stop-color="#3a1bb0"/></linearGradient>
+      <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset="1" stop-color="#ffd60a"/></linearGradient>
+    </defs>
+    <g stroke="url(#spec)" fill="none" stroke-linecap="round"><path d="M100 18 A82 82 0 1 1 42 42" stroke-width="4" opacity="0.9"/><path d="M100 18 l-13 -7 M100 18 l-5 14" stroke-width="4"/></g>
+    <path d="M100 40 L150 60 V104 C150 138 128 160 100 168 C72 160 50 138 50 104 V60 Z" fill="rgba(11,63,214,.08)" stroke="url(#spec)" stroke-width="5" stroke-linejoin="round"/>
+    <circle cx="100" cy="96" r="17" fill="url(#gold)"/><path d="M92 108 L108 108 L104 134 L96 134 Z" fill="url(#gold)"/>
+    <rect x="104" y="116" width="9" height="5" rx="1.5" fill="url(#gold)"/><rect x="104" y="125" width="6" height="5" rx="1.5" fill="url(#gold)"/>
+  </svg>
+  <h1><span class="brand">KeyGuardian</span></h1>
+  <div class="tagl">Runtime Key-Rotation Guard · XPR Network L1</div>
+  <p class="lead">Your automated accounts are only as safe as their keys. KeyGuardian watches them around the clock and, the moment an unauthorized change appears, <b>rotates your key to safety</b> — through your own hardware, before anyone can take control. Non-custodial, bare-metal, post-quantum ready.</p>
+  <div class="badges">
+    <span class="badge">🛡️ <b>Hardware-rooted</b></span>
+    <span class="badge">🔑 <b>Non-custodial</b></span>
+    <span class="badge">⚛️ <b>Post-quantum ready</b></span>
+    <span class="badge">🦀 <b>Bare-metal Rust</b></span>
+  </div>
+</header>
+
+<div class="dlbar">
+  <a href="downloads/KeyGuardian_0.1.0_amd64.deb" download>⬇ Download KeyGuardian for Linux</a>
+  <div class="n">Pop!_OS / Ubuntu (.deb) · free to Watch · $4/mo to Guard · your keys never leave your hardware</div>
+</div>
+
+<div class="band"></div>
+<div class="wrap">
+
+  <section class="sec">
+    <h2>What It Protects You From</h2>
+    <div class="mission">
+      <p>When a wallet, a trading pool, or an autonomous agent runs on its own, the key that controls it is the whole game. If an attacker slips in an unauthorized key or quietly lowers a signing threshold, they can drain the account before a human ever notices.</p>
+      <p>KeyGuardian stands watch over that exact moment. It continuously checks your account's on-chain authority, and the instant something is wrong it <b>signs a new key and swaps the old one out</b> — in under a second, approved by a quorum of your own co-signers and sealed by a hardware key you hold. The attacker is left holding a key that no longer works.</p>
+      <p><b>It never holds your keys.</b> It never moves your funds. It only ever rotates <b>your</b> account to a key <b>you</b> control — on <b>your</b> machine.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>How It Guards</h2>
+    <div class="grid">
+      <div class="pr"><h3><span>🛡️</span>Hardware root of trust</h3><p>Every rotation is signed by your YubiKey — a physical touch. The signing key lives in hardware and never touches software. Nothing rotates without you.</p></div>
+      <div class="pr"><h3><span>👥</span>M-of-N approval</h3><p>No single compromise can rotate anything. A rotation needs a quorum of your co-signers to approve first — 2-of-3 by default, your call.</p></div>
+      <div class="pr pqc"><h3><span>⚛️</span>Post-quantum upgrade</h3><p>Rotate an at-risk classical key straight to a post-quantum scheme (ML-DSA). The "record now, break later" threat is answered before it arrives.</p></div>
+      <div class="pr"><h3><span>🧾</span>Tamper-evident record</h3><p>Every decision is sealed into a SHA-256 hash chain. After any incident you can prove exactly what was seen and done — and that the record wasn't edited.</p></div>
+      <div class="pr"><h3><span>⏱️</span>Clock-tamper proof</h3><p>Moving a clock can't disarm it. A time anomaly freezes the guard and demands hardware re-authentication — it never quietly goes dark.</p></div>
+      <div class="pr"><h3><span>🦀</span>Bare-metal, never panics</h3><p>Zero-allocation Rust with checked arithmetic throughout. A guard that crashes is a guard that failed — so this one is built not to.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>The Moment It Matters</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="t"><b>Watch</b><p>KeyGuardian continuously reads your account's authority on XPR L1 — keys, thresholds, permissions — on your own machine.</p></div></div>
+      <div class="step"><div class="n">2</div><div class="t"><b>Detect</b><p>An unauthorized key or a lowered threshold appears. KeyGuardian flags it the instant it forms.</p></div></div>
+      <div class="step"><div class="n">3</div><div class="t"><b>Approve</b><p>Your co-signers approve the emergency rotation (M-of-N), and your YubiKey seals it with a touch.</p></div></div>
+      <div class="step"><div class="n">4</div><div class="t"><b>Rotate &amp; prove</b><p>A new key — optionally post-quantum — takes over on-chain in under a second, and the whole event is sealed into the audit chain.</p></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Pricing</h2>
+    <div class="price">
+      <div class="plan">
+        <div class="nm">🆓 Watch</div>
+        <div class="amt">Free<small> forever</small></div>
+        <ul><li>Guard 1 account</li><li>Live takeover detection</li><li>Instant alerts</li><li>Read-only posture cockpit</li></ul>
+        <a class="cta" href="downloads/KeyGuardian_0.1.0_amd64.deb" download>Download Free</a>
+        <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">Real key protection at $0 — no card, no catch.</div>
+      </div>
+      <div class="plan">
+        <div class="nm">🛡️ Guardian</div>
+        <div class="amt">$4<small> / month</small></div>
+        <ul><li>Guard up to 3 accounts</li><li>Hardware-sealed auto-rotation</li><li>2-of-3 quorum</li><li>Tamper-evident audit chain</li><li>72-hour grace window</li></ul>
+        <a class="cta" href="keyguardian-checkout.html">Get Guardian</a>
+        <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">AWS charges ~$1 per key/month just to rotate on a timer. This is hardware rotation + quorum for $4 flat.</div>
+      </div>
+      <div class="plan">
+        <div class="nm">⚛️ Enterprise</div>
+        <div class="amt">$44<small> / month</small></div>
+        <ul><li>Unlimited accounts + fleets</li><li>Post-quantum key upgrades</li><li>Custom M-of-N quorum</li><li>SIEM-ready audit export</li><li>Priority rotation lanes</li></ul>
+        <a class="cta" href="keyguardian-checkout.html">Get Enterprise</a>
+        <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">MPC &amp; custody platforms run hundreds to thousands a month. You'll think we forgot a zero.</div>
+      </div>
+      <div class="plan">
+        <div class="nm">👑 Lifetime</div>
+        <div class="amt">$288<small> one-time</small></div>
+        <ul><li>Everything in Guardian, forever</li><li>Founding Guardian status</li><li>No renewals, ever</li><li>Pay in XPR — or 288 METAL</li></ul>
+        <a class="cta" href="keyguardian-checkout.html">Become a Founder</a>
+        <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">Pays for itself vs Enterprise in ~7 months — then it's free for life.</div>
+      </div>
+    </div>
+    <p style="text-align:center;color:#6f7684;font-size:12px;margin-top:12px">Pay native XPR ⚛️ (live-priced, so the charge always matches) · METAL Ⓜ️ accepted on Lifetime · non-custodial · cancel anytime</p>
+  </section>
+
+  <section class="sec">
+    <h2>Who It's For</h2>
+    <div class="chips">
+      <span class="chip"><b>Trading pools</b> &amp; DeFi teams</span>
+      <span class="chip"><b>Block producer</b> node rigs</span>
+      <span class="chip"><b>Autonomous agents</b> holding keys</span>
+      <span class="chip"><b>Treasuries</b> &amp; multisig ops</span>
+      <span class="chip"><b>Anyone</b> guarding a hot wallet</span>
+    </div>
+  </section>
+
+  <section class="close">
+    <h2>Guard the key. Keep the account.</h2>
+    <p>The takeover is only a takeover if the key still works when it's over. KeyGuardian makes sure it doesn't.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div><span class="mark">CipherX1 Logistics</span> · Agentic-AI Security</div>
+  <div style="margin-top:8px">Local · Private · Non-custodial · XPR ⚛️ (live-priced) · METAL Ⓜ️ on Lifetime</div>
+  <div style="margin-top:8px">8 — Build or Destroy — peace · <a href="https://x.com/cipherx1llc">@cipherx1llc</a></div>
+  <div class="legal">Rust is a trademark of the Rust Foundation. CipherX1 Logistics is an independent project, not affiliated with or endorsed by the Rust Foundation. KeyGuardian is non-custodial security software that operates only on accounts you own and control.</div>
+</footer>
+</body>
+</html>
