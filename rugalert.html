@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RugAlert — Rug-Pull Risk Scanner</title>
+<meta name="description" content="RugAlert reads public XPR chain + Simple DEX data and flags the conditions that make a rug possible — before a bot ever enters the pool. Read-only, explainable, non-custodial.">
+<style>
+  :root{--bg:#000;--card:#0b0d11;--line:#1c2028;--ink:#f5f7fa;--dim:#8b93a1;--gold:#ffd60a;--ok:#30d158;--bad:#ff453a;
+    --spec:linear-gradient(115deg,#e60000 0%,#ff7a00 14%,#ffd500 28%,#00b140 44%,#00a7b5 58%,#0b3fd6 72%,#3a1bb0 84%,#6e0a0a 100%);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#000;color:var(--ink);font-family:'Inter','Segoe UI',system-ui,sans-serif;line-height:1.55;overflow-x:hidden}
+  body::before{content:"";position:fixed;top:0;left:0;right:0;height:3px;background:var(--spec);z-index:10}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+  header{text-align:center;padding:52px 18px 24px}
+  .logo{width:120px;height:120px;display:block;margin:0 auto 16px}
+  h1{font-size:34px;font-weight:900;letter-spacing:-.6px}
+  .brand{background:var(--spec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .tagl{color:var(--dim);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-top:8px}
+  .lead{max-width:680px;margin:16px auto 0;color:#c9cdd6;font-size:17px}
+  .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+  .badge{border:1px solid var(--line);border-radius:999px;padding:8px 15px;font-size:13px;color:#cdd2db;background:#0a0c10}
+  .badge b{color:var(--gold)}
+  .dlbar{max-width:1000px;margin:22px auto 0;padding:18px;background:var(--spec);border-radius:16px;text-align:center}
+  .dlbar a{display:inline-block;background:#000;color:#fff;font-weight:800;font-size:16px;padding:13px 24px;border-radius:999px;text-decoration:none}
+  .dlbar .n{color:#0a0a0a;font-weight:700;font-size:12.5px;margin-top:9px}
+  .band{height:5px;border-radius:3px;background:var(--spec);max-width:964px;margin:30px auto 0}
+  .sec{padding:38px 0 8px}
+  .sec h2{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#cfd4de;text-align:center;margin-bottom:12px}
+  .mission{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 24px;position:relative;overflow:hidden}
+  .mission::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--spec)}
+  .mission p{color:#dfe3ea;font-size:16px;max-width:800px}.mission p + p{margin-top:12px}.mission b{color:#fff}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:8px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .pr{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .pr h3{font-size:16px;font-weight:800;color:#fff}.pr h3 span{margin-right:8px}
+  .pr p{color:#c2c7d0;font-size:14px;margin-top:6px}
+  .steps{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 18px;display:flex;gap:14px;align-items:flex-start}
+  .step .n{font-weight:900;font-size:18px;background:var(--spec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;width:26px;text-align:center;flex:0 0 auto}
+  .step .t b{color:#fff;font-size:15px}.step .t p{color:#c2c7d0;font-size:13.5px;margin-top:3px}
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  @media(max-width:620px){.price{grid-template-columns:1fr}}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative;overflow:hidden}
+  .plan::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--spec)}
+  .plan .nm{font-size:19px;font-weight:800}
+  .plan .amt{font-size:30px;font-weight:900;margin-top:8px}.plan .amt small{font-size:14px;color:var(--dim);font-weight:600}
+  .plan ul{list-style:none;margin:14px 0 0;display:flex;flex-direction:column;gap:7px}
+  .plan li{color:#dfe3ea;font-size:14px;padding-left:20px;position:relative}
+  .plan li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+  .plan .cta{margin-top:16px;display:block;text-align:center;padding:12px;border-radius:999px;font-weight:700;color:#fff;background:var(--spec);text-decoration:none;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;color:#dfe3ea;background:#0a0c10}
+  .chip b{color:var(--gold)}
+  .close{text-align:center;padding:42px 18px 10px}.close h2{font-size:24px;font-weight:900}.close p{color:#c2c7d0;margin-top:10px;max-width:600px;margin-inline:auto}
+  footer{text-align:center;padding:38px 18px 50px;color:#6f7684;font-size:13px;margin-top:30px;border-top:1px solid var(--line)}
+  footer .mark{color:var(--gold);font-weight:700}footer a{color:#9ac2ff;text-decoration:none}
+  footer .legal{font-size:11px;color:#565c68;max-width:640px;margin:14px auto 0;line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <svg class="logo" viewBox="0 0 120 120" aria-label="RugAlert">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd60a"/><stop offset="1" stop-color="#ff453a"/></linearGradient></defs>
+    <circle cx="60" cy="60" r="52" fill="none" stroke="url(#g)" stroke-width="3" stroke-dasharray="6 5"/>
+    <path d="M60 24 L96 92 L24 92 Z" fill="none" stroke="url(#g)" stroke-width="7" stroke-linejoin="round"/>
+    <rect x="54" y="50" width="12" height="26" rx="6" fill="url(#g)"/><circle cx="60" cy="84" r="6" fill="url(#g)"/>
+  </svg>
+  <h1><span class="brand">RugAlert</span></h1>
+  <div class="tagl">Rug-Pull Risk Scanner · Simple DEX · XPR L1</div>
+  <p class="lead">A token's only as safe as its liquidity, its holders, and the hands that launched it. RugAlert reads the <b>public</b> chain and flags the conditions that make a rug possible — and names exactly which ones — <b>before a bot ever enters the pool</b>. Read-only. Explainable. Non-custodial.</p>
+  <div class="badges">
+    <span class="badge">👁️ <b>Read-only</b></span>
+    <span class="badge">🧾 <b>Explainable</b></span>
+    <span class="badge">🤖 <b>Bot-ready</b></span>
+    <span class="badge">🦀 <b>Bare-metal Rust</b></span>
+  </div>
+</header>
+
+<div class="dlbar">
+  <a href="downloads/RugAlert_0.1.0_amd64.deb" download>⬇ Download RugAlert for Linux</a>
+  <div class="n">Pop!_OS / Ubuntu (.deb) · free to scan · 800 XPR for the live bot oracle</div>
+</div>
+
+<div class="band"></div>
+<div class="wrap">
+
+  <section class="sec">
+    <h2>What It Catches</h2>
+    <div class="mission">
+      <p>A rug pull isn't magic — it's a loaded gun anyone can read on-chain: <b>liquidity that isn't locked</b>, a <b>handful of wallets</b> holding the float, a <b>contract owner</b> who kept the mint keys, and often a <b>throwaway deployer</b> with a trail of dead tokens behind them.</p>
+      <p>RugAlert reads all of it, scores it across three independent lenses, and tells you <b>exactly which conditions fired</b>. It doesn't accuse a token or promise it's safe — it shows you the structural risk and lets you decide. For trading bots, it's the pre-trade gate: <b>ask before you ape</b>.</p>
+      <p><b>It never signs, holds a key, or moves a cent.</b> It only ever reads public data and reports what it sees.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>How It Scores — Three Lenses</h2>
+    <div class="grid">
+      <div class="pr"><h3><span>🧱</span>Pool structure</h3><p>Liquidity lock, top-holder concentration, on-chain tx velocity, and whether the owner still holds privilege keys — the four classic rug vectors.</p></div>
+      <div class="pr"><h3><span>🕵️</span>Deployer reputation</h3><p>How old the launching account is and whether it's launched-and-dumped before. A clean pool from a serial rugger isn't clean.</p></div>
+      <div class="pr"><h3><span>⭐</span>Bot score</h3><p>Pulls the on-chain agent reputation (ProtonNZ's agentfeed) so you score the <b>counterparty</b>, not just the pool.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>The Moment It Matters</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="t"><b>Watch</b><p>RugAlert reads pool state, holders, owner authority and deployer history across multiple endpoints — cross-checked so one poisoned source can't lie.</p></div></div>
+      <div class="step"><div class="n">2</div><div class="t"><b>Detect</b><p>Unlocked liquidity, a live owner key, a lowered threshold, a bot-pumped launch — flagged the instant it forms.</p></div></div>
+      <div class="step"><div class="n">3</div><div class="t"><b>Alert</b><p>An explainable verdict naming every condition that fired — to your terminal, your phone, or your bot's pre-trade gate in microseconds.</p></div></div>
+      <div class="step"><div class="n">4</div><div class="t"><b>Halt</b><p>Your bot reads <code>[HALT]</code> and never enters the pool. You keep your money. The rug pulls on someone else.</p></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Pricing</h2>
+    <div class="price">
+      <div class="plan">
+        <div class="nm">🔍 Scan</div>
+        <div class="amt">Free<small> forever</small></div>
+        <ul><li>On-demand token scans</li><li>Full explainable verdict</li><li>All three risk lenses</li><li>Local cockpit</li></ul>
+        <a class="cta" href="downloads/RugAlert_0.1.0_amd64.deb" download>Download Free</a>
+        <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">Real rug-screening at $0 — scan any token, see every reason.</div>
+      </div>
+      <div class="plan">
+        <div class="nm">🛰️ RugAlert Pro</div>
+        <div class="amt">800 XPR<small> / month</small></div>
+        <ul><li>Live bot oracle (microsecond gate)</li><li>Real-time rug alerts + mobile push</li><li>Watch unlimited pools</li><li>Fleet / multi-bot access</li></ul>
+        <a class="cta" href="rugalert-checkout.html">Get Pro — 800 XPR</a>
+        <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">≈ a couple bucks a month to stop one rug. We'd call that a steal.</div>
+      </div>
+    </div>
+    <p style="text-align:center;color:#6f7684;font-size:12px;margin-top:12px">Pay native XPR ⚛️ · non-custodial · cancel anytime</p>
+  </section>
+
+  <section class="sec">
+    <h2>Who It's For</h2>
+    <div class="chips">
+      <span class="chip"><b>Agentic trading bots</b></span>
+      <span class="chip"><b>Simple DEX</b> traders</span>
+      <span class="chip"><b>DeFi</b> degens who want to survive</span>
+      <span class="chip"><b>Pools &amp; LPs</b> watching their backs</span>
+      <span class="chip"><b>Anyone</b> tired of getting rugged</span>
+    </div>
+  </section>
+
+  <section class="close">
+    <h2>Ask before you ape.</h2>
+    <p>The rug only works if you're standing on it when it's pulled. RugAlert makes sure you're not.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div><span class="mark">CipherX1 Logistics</span> · Agentic-AI Security</div>
+  <div style="margin-top:8px">Read-only · Explainable · Non-custodial · XPR ⚛️</div>
+  <div style="margin-top:8px">8 — Build or Destroy — peace · <a href="https://x.com/cipherx1llc">@cipherx1llc</a></div>
+  <div class="legal">Rust is a trademark of the Rust Foundation. CipherX1 Logistics is an independent project, not affiliated with or endorsed by the Rust Foundation. RugAlert reports structural risk from public on-chain data and is not financial advice. A verdict is not a guarantee a token is safe or unsafe — always do your own research.</div>
+</footer>
+</body>
+</html>

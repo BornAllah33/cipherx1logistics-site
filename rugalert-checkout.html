@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RugAlert Pro — WebAuth Checkout</title>
+<style>
+  :root{--gold:#ffd60a;--ink:#f5f7fa;--dim:#8b93a1;--line:#20242b;--card:#0c0e12;
+    --spec:linear-gradient(115deg,#e60000 0%,#ff7a00 14%,#ffd500 28%,#00b140 44%,#00a7b5 58%,#0b3fd6 72%,#3a1bb0 84%,#6e0a0a 100%);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;color:var(--ink);min-height:100vh;background:#000;padding:24px 16px}
+  body::before{content:"";position:fixed;top:0;left:0;right:0;height:3px;background:var(--spec);z-index:10}
+  .wrap{max-width:540px;margin:0 auto}
+  h1{background:var(--spec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-size:26px;font-weight:800}
+  .sub{color:#b9b4c7;font-size:14px;margin-top:6px}
+  .rate{font-size:12px;color:#8a8599;margin-top:8px}.rate b{color:#cfd4de}
+  .card{margin-top:18px;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:16px;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--spec)}
+  .status{font-size:13px;color:#8a8599;margin:10px 0 0;min-height:18px}.status.ok{color:#43c089}.status.err{color:#ff6b6b}
+  label{font-size:13px;color:#cfcfe6;display:block;margin:12px 0 6px}
+  input{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #2f2a48;background:#000;color:var(--ink);font-size:15px}
+  .tier{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px}
+  .tier .top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .tier .t b{display:block;font-size:15px}.tier .t span{color:#8a8599;font-size:12px}
+  .tier .amt{color:#fff;font-weight:800;text-align:right}.tier .amt small{display:block;color:#8a8599;font-weight:500;font-size:11px}
+  button{cursor:pointer;border:none;border-radius:999px;font-weight:700}
+  .connect{width:100%;padding:14px;font-size:16px;color:#fff;margin-top:14px;background:var(--spec);text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .pay{width:100%;margin-top:12px;padding:13px;font-size:15px;color:#111;background:var(--gold)}
+  .me{font-size:13px;color:#43c089;margin-top:10px}
+  .foot{margin-top:18px;font-size:12px;color:#6f6a84;line-height:1.5}
+  code{background:#1b1630;padding:1px 5px;border-radius:4px;font-size:12px}
+  .legal{margin-top:14px;font-size:11px;color:#565c68;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Get RugAlert Pro</h1>
+  <div class="sub">Connect your WebAuth wallet and pay native XPR — non-custodial, straight to CipherX1 Logistics. RugAlert never holds a key or moves a cent.</div>
+  <div class="rate" id="rate">Fetching live XPR rate…</div>
+
+  <div class="card">
+    <button class="connect" id="connect">Connect WebAuth</button>
+    <div class="me" id="me" style="display:none"></div>
+    <div class="status" id="status"></div>
+
+    <label for="email">Email (goes in the memo so your Pro license activates)</label>
+    <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+
+    <div class="tier">
+      <div class="top">
+        <div class="t"><b>RugAlert Pro</b><span>monthly · bot oracle + live alerts + unlimited pools</span></div>
+        <div class="amt">800 XPR<small id="usd">≈ —</small></div>
+      </div>
+      <button class="pay" id="pay">Pay 800 XPR</button>
+    </div>
+  </div>
+
+  <div class="foot">
+    Non-custodial: you sign your own transfer in your own wallet; this page never touches your keys.
+    Payments land at <code>yacubai</code> on XPR Network. 800 XPR is a fixed price — the live rate is shown only so you know the dollar value.
+  </div>
+  <div class="legal">Rust is a trademark of the Rust Foundation. CipherX1 Logistics is an independent project, not affiliated with or endorsed by the Rust Foundation. RugAlert reports structural risk from public data and is not financial advice.</div>
+</div>
+
+<script type="module">
+const CONFIG = {
+  appName:'CipherX1Logistics', requestAccount:'yacubai', payTo:'yacubai',
+  chainId:'384da888112027f0321850a169f737c33e53b388aad48b5adace4bab97f437e0',
+  endpoints:['https://proton.greymass.com','https://proton.eosusa.io','https://api.protonnz.com'],
+};
+const XPR = { contract:'eosio.token', symbol:'XPR', precision:4 };
+const PRICE_XPR = 800; // fixed price, King's number
+
+let xprUsd = 0.0025;
+async function loadRate(){
+  try{
+    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=xpr-network&vs_currencies=usd',{cache:'no-store'});
+    const j = await r.json(); const v = j?.['xpr-network']?.usd; if(v>0) xprUsd=v;
+  }catch(_){}
+  document.getElementById('rate').innerHTML = `Live rate: <b>1 XPR ≈ $${xprUsd.toFixed(5)}</b>`;
+  document.getElementById('usd').textContent = `≈ $${(PRICE_XPR*xprUsd).toFixed(2)} / mo`;
+}
+
+import { ConnectWallet } from 'https://cdn.jsdelivr.net/npm/@proton/web-sdk@4.2.16/+esm';
+const statusEl=document.getElementById('status'), meEl=document.getElementById('me');
+let session=null;
+const setStatus=(m,k='')=>{statusEl.textContent=m;statusEl.className='status '+k;};
+const fmt=(whole)=>`${Number(whole).toFixed(XPR.precision)} ${XPR.symbol}`;
+
+document.getElementById('connect').onclick = async () => {
+  setStatus('Opening WebAuth…');
+  try{
+    const res = await ConnectWallet({
+      linkOptions:{endpoints:CONFIG.endpoints,chainId:CONFIG.chainId,restoreSession:false},
+      selectorOptions:{appName:CONFIG.appName,enabledWalletTypes:['webauth','proton']},
+      transportOptions:{requestAccount:CONFIG.requestAccount},
+    });
+    session=res.session;
+    meEl.style.display='block'; meEl.textContent='✓ Connected as @'+session.auth.actor.toString();
+    setStatus('Wallet connected. Pay to activate Pro.','ok');
+  }catch(e){ setStatus('Connect cancelled or failed: '+(e?.message||e),'err'); }
+};
+
+document.getElementById('pay').onclick = async () => {
+  if(!session){ setStatus('Connect your WebAuth wallet first.','err'); return; }
+  const email=document.getElementById('email').value.trim();
+  if(!email){ setStatus('Enter your email so your license can be activated.','err'); return; }
+  const actor=session.auth.actor.toString(), perm=session.auth.permission.toString();
+  const action={ account:XPR.contract, name:'transfer',
+    authorization:[{actor,permission:perm}],
+    data:{ from:actor, to:CONFIG.payTo, quantity:fmt(PRICE_XPR), memo:`cx1:rugalert:pro:${email}` } };
+  setStatus(`Approve ${fmt(PRICE_XPR)} in your wallet…`);
+  try{
+    const r = await session.transact({actions:[action]},{broadcast:true});
+    const id = r?.processed?.id || r?.transaction_id || '(submitted)';
+    setStatus(`Paid ✓ — ${fmt(PRICE_XPR)}. Tx ${String(id).slice(0,12)}… Pro activating shortly.`,'ok');
+  }catch(e){ setStatus('Payment cancelled or failed: '+(e?.message||e),'err'); }
+};
+
+loadRate();
+</script>
+</body>
+</html>
