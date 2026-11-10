@@ -48,6 +48,15 @@
     <label for="email">Email (goes in the memo so your license activates)</label>
     <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
 
+    <div style="margin-top:14px">
+      <div style="font-size:13px;color:#cfcfe6;margin-bottom:6px">Pay Pro with (stablecoins are 1:1 USD)</div>
+      <div id="tokpick" style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" data-tok="XMD" class="tokbtn" style="flex:1;min-width:90px;padding:10px;border-radius:10px;border:1px solid #2f2a48;background:#000;color:#fff;cursor:pointer;font-weight:600">Metal Dollar</button>
+        <button type="button" data-tok="XUSDC" class="tokbtn" style="flex:1;min-width:90px;padding:10px;border-radius:10px;border:1px solid #2f2a48;background:#000;color:#fff;cursor:pointer;font-weight:600">USDC</button>
+        <button type="button" data-tok="XPR" class="tokbtn" style="flex:1;min-width:90px;padding:10px;border-radius:10px;border:1px solid #2f2a48;background:#000;color:#fff;cursor:pointer;font-weight:600">XPR</button>
+      </div>
+    </div>
+
     <div class="tier">
       <div class="top">
         <div class="t"><b>RugAlert Pro</b><span>monthly · bot oracle + live alerts + unlimited pools</span></div>
@@ -80,7 +89,13 @@ const CONFIG = {
   chainId:'384da888112027f0321850a169f737c33e53b388aad48b5adace4bab97f437e0',
   endpoints:['https://proton.greymass.com','https://proton.eosusa.io','https://api.protonnz.com'],
 };
-const XPR = { contract:'eosio.token', symbol:'XPR', precision:4 };
+const TOKENS = {
+  XPR:   { contract:'eosio.token', symbol:'XPR',   precision:4 },
+  XMD:   { contract:'xmd.token',   symbol:'XMD',   precision:6 }, // Metal Dollar, USD-pegged
+  XUSDC: { contract:'xtokens',     symbol:'XUSDC', precision:6 }, // USD Coin, USD-pegged
+};
+const XPR = TOKENS.XPR;
+let payTok = 'XMD'; // default: stablecoin, no volatility
 const PRO_USD = 4;      // USD-pegged monthly — appreciation-proof
 const FOUNDER_XPR = 280; // fixed one-time founder price (first 8 → lifetime Pro)
 
@@ -93,6 +108,7 @@ async function loadRate(){
   document.getElementById('rate').innerHTML = `Live rate: <b>1 XPR ≈ $${xprUsd.toFixed(5)}</b> — your wallet is charged the exact USD value in XPR.`;
   document.getElementById('pro-xpr').textContent = `≈ ${proXpr().toFixed(XPR.precision)} XPR / mo`;
   document.getElementById('found-usd').textContent = `≈ $${(FOUNDER_XPR*xprUsd).toFixed(2)} today`;
+  if(typeof updateProBtn==='function') updateProBtn();
 }
 function proXpr(){ return PRO_USD / xprUsd; }
 
@@ -100,7 +116,8 @@ import { ConnectWallet } from 'https://cdn.jsdelivr.net/npm/@proton/web-sdk@4.2.
 const statusEl=document.getElementById('status'), meEl=document.getElementById('me');
 let session=null;
 const setStatus=(m,k='')=>{statusEl.textContent=m;statusEl.className='status '+k;};
-const fmt=(whole)=>`${Number(whole).toFixed(XPR.precision)} ${XPR.symbol}`;
+const fmtT=(amount,t)=>`${Number(amount).toFixed(t.precision)} ${t.symbol}`;
+const fmt=(whole)=>fmtT(whole, XPR);
 
 document.getElementById('connect').onclick = async () => {
   setStatus('Opening WebAuth…');
@@ -116,24 +133,45 @@ document.getElementById('connect').onclick = async () => {
   }catch(e){ setStatus('Connect cancelled or failed: '+(e?.message||e),'err'); }
 };
 
-async function pay(amountXpr, planId){
+async function sendTransfer(t, amount, planId){
   if(!session){ setStatus('Connect your WebAuth wallet first.','err'); return; }
   const email=document.getElementById('email').value.trim();
   if(!email){ setStatus('Enter your email so your license can be activated.','err'); return; }
   const actor=session.auth.actor.toString(), perm=session.auth.permission.toString();
-  const action={ account:XPR.contract, name:'transfer',
+  const qty=fmtT(amount,t);
+  const action={ account:t.contract, name:'transfer',
     authorization:[{actor,permission:perm}],
-    data:{ from:actor, to:CONFIG.payTo, quantity:fmt(amountXpr), memo:`cx1:rugalert:${planId}:${email}` } };
-  setStatus(`Approve ${fmt(amountXpr)} in your wallet…`);
+    data:{ from:actor, to:CONFIG.payTo, quantity:qty, memo:`cx1:rugalert:${planId}:${email}` } };
+  setStatus(`Approve ${qty} in your wallet…`);
   try{
     const r = await session.transact({actions:[action]},{broadcast:true});
     const id = r?.processed?.id || r?.transaction_id || '(submitted)';
-    setStatus(`Paid ✓ — ${fmt(amountXpr)}. Tx ${String(id).slice(0,12)}… Activating shortly.`,'ok');
+    setStatus(`Paid ✓ — ${qty}. Tx ${String(id).slice(0,12)}… Activating shortly.`,'ok');
   }catch(e){ setStatus('Payment cancelled or failed: '+(e?.message||e),'err'); }
 }
-
-document.getElementById('pay-pro').onclick = () => pay(proXpr(), 'pro');
-document.getElementById('pay-found').onclick = () => pay(FOUNDER_XPR, 'founder8');
+// Pro ($4 USD): stablecoins 1:1, XPR at live rate
+function payPro(){
+  const t=TOKENS[payTok];
+  const amount=(payTok==='XPR')?proXpr():PRO_USD;
+  return sendTransfer(t, amount, 'pro');
+}
+function updateProBtn(){
+  const t=TOKENS[payTok];
+  const amount=(payTok==='XPR')?proXpr():PRO_USD;
+  const b=document.getElementById('pay-pro');
+  if(b) b.textContent=`Pay ${fmtT(amount,t)}`;
+}
+function selTok(tok){
+  payTok=tok;
+  document.querySelectorAll('#tokpick .tokbtn').forEach(b=>{b.style.borderColor='#2f2a48';b.style.color='#fff';});
+  const a=document.querySelector(`#tokpick .tokbtn[data-tok="${tok}"]`);
+  if(a){a.style.borderColor='#ffd60a';a.style.color='#ffd60a';}
+  updateProBtn();
+}
+document.querySelectorAll('#tokpick .tokbtn').forEach(btn=>{ btn.onclick=()=>selTok(btn.getAttribute('data-tok')); });
+selTok('XMD'); // default
+document.getElementById('pay-pro').onclick = payPro;
+document.getElementById('pay-found').onclick = () => sendTransfer(TOKENS.XPR, FOUNDER_XPR, 'founder8');
 
 loadRate();
 </script>

@@ -65,7 +65,7 @@
     Paid tiers add hardware-sealed auto-rotation and quorum.
     Non-custodial: you sign your own transfer in your own wallet; this page never touches your keys.
     Payments land at <code>yacubai</code> on XPR Network. The XPR amount is computed live so it always matches the price shown.
-    <br><br><b>Lifetime</b> can be paid in XPR or in METAL (<code>xtokens</code> / 8 decimals) on XPR Network.
+    <br><br>All tiers can be paid in <b>XPR</b>, <b>Metal Dollar (XMD)</b>, or <b>USDC</b> — stablecoins are charged 1:1 USD. Lifetime also accepts <b>METAL</b>.
   </div>
 
   <div class="legal">Rust is a trademark of the Rust Foundation. CipherX1 Logistics is an independent project, not affiliated with or endorsed by the Rust Foundation. KeyGuardian is non-custodial security software that operates only on accounts you own and control.</div>
@@ -83,6 +83,8 @@ const CONFIG = {
 
 const XPR   = { contract: 'eosio.token', symbol: 'XPR', precision: 4 };
 const METAL = { contract: 'xtokens',     symbol: 'METAL', precision: 8 };
+const XMD   = { contract: 'xmd.token',   symbol: 'XMD',   precision: 6 }; // Metal Dollar, USD-pegged
+const XUSDC = { contract: 'xtokens',     symbol: 'XUSDC', precision: 6 }; // USD Coin, USD-pegged
 
 // Live XPR/USD, with a safe fallback if the feed is unreachable.
 let xprUsd = 0.0025;
@@ -143,9 +145,13 @@ function renderTiers() {
        <div class="anchor">${t.anchor}</div>
        <div class="btns">
          <button class="pay" data-k="xpr">Pay $${t.usd} in XPR</button>
+         <button class="pay alt" data-k="xmd">Pay $${t.usd} in Metal Dollar</button>
+         <button class="pay alt" data-k="xusdc">Pay $${t.usd} in USDC</button>
          ${metalBtn}
        </div>`;
     row.querySelector('[data-k="xpr"]').onclick = () => pay(t, XPR, xprFor(t.usd));
+    row.querySelector('[data-k="xmd"]').onclick = () => pay(t, XMD, t.usd);
+    row.querySelector('[data-k="xusdc"]').onclick = () => pay(t, XUSDC, t.usd);
     const mb = row.querySelector('[data-k="metal"]');
     if (mb) mb.onclick = () => pay(t, METAL, t.metal);
     tiersEl.appendChild(row);
