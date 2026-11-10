@@ -71,13 +71,17 @@ const CONFIG = {
 };
 const METAL = { enabled: true, contract: 'xtokens', symbol: 'METAL', precision: 8 }; // confirmed on XPR chain: issuer xtokens, 8 decimals
 const XPR   = { contract: 'eosio.token', symbol: 'XPR', precision: 4 };
+const XMD   = { contract: 'xmd.token',   symbol: 'XMD',   precision: 6 };
+const XUSDC = { contract: 'xtokens',     symbol: 'XUSDC', precision: 6 };
 const q = (tok, whole) => `${Number(whole).toFixed(tok.precision)} ${tok.symbol}`;
+let xprUsd = 0.0025;
+async function loadRate(){ try{ const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=xpr-network&vs_currencies=usd',{cache:'no-store'}); const j=await r.json(); const v=j?.['xpr-network']?.usd; if(v>0) xprUsd=v; }catch(_){} renderTiers(); }
 
 // DRAFT tiers — King to finalize amounts. Consumer / Developer / Enterprise.
 const TIERS = {
   'botlock': [
-    { id:'consumer',   name:'Consumer',   note:'Household Shield · subscription (DRAFT)',   tok:XPR,   amount:0 },
-    { id:'developer',  name:'Developer',  note:'Trust Badge + SDK · subscription (DRAFT)',  tok:XPR,   amount:0 },
+    { id:'consumer',   name:'Consumer',   note:'Household Shield · monthly',   usd:4.04 },
+    { id:'developer',  name:'Developer',  note:'Trust Badge + SDK · monthly',  usd:17 },
     { id:'enterprise', name:'Enterprise', note:'Infinite Cluster · 2,800 METAL lifetime (first-8-mo promo)',   tok:METAL, amount:2800 },
   ],
 };
@@ -91,17 +95,28 @@ function renderTiers(){
   const list=TIERS[productEl.value]||[]; tiersEl.innerHTML='';
   for(const t of list){
     const row=document.createElement('div'); row.className='tier';
-    const priced = Number(t.amount)>0;
-    const disabled=(t.tok===METAL && !METAL.enabled) || !priced;
-    row.innerHTML=`<div class="t"><b>${t.name}</b><span>${t.note}</span></div>
+    if(t.usd!=null){
+      row.innerHTML=`<div class="t"><b>${t.name}</b><span>${t.note}</span></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <div class="amt">$${t.usd}</div>
+        <button class="pay" data-k="xpr">Pay $${t.usd} in XPR</button>
+        <button class="pay alt" data-k="xmd">Metal Dollar</button>
+        <button class="pay alt" data-k="xusdc">USDC</button></div>`;
+      row.querySelector('[data-k="xpr"]').onclick=()=>payWith(t, XPR, t.usd/xprUsd);
+      row.querySelector('[data-k="xmd"]').onclick=()=>payWith(t, XMD, t.usd);
+      row.querySelector('[data-k="xusdc"]').onclick=()=>payWith(t, XUSDC, t.usd);
+    } else {
+      const disabled=(t.tok===METAL && !METAL.enabled);
+      row.innerHTML=`<div class="t"><b>${t.name}</b><span>${t.note}</span></div>
       <div style="display:flex;align-items:center;gap:10px">
-        <div class="amt">${priced?q(t.tok,t.amount):'price TBD'}</div>
+        <div class="amt">${q(t.tok,t.amount)}</div>
         <button class="pay" ${disabled?'disabled title="pending"':''}>Pay</button></div>`;
-    row.querySelector('button').onclick=()=>pay(t);
+      row.querySelector('button').onclick=()=>payWith(t, t.tok, t.amount);
+    }
     tiersEl.appendChild(row);
   }
 }
-productEl.onchange=renderTiers; renderTiers();
+productEl.onchange=renderTiers; loadRate();
 document.getElementById('connect').onclick=async()=>{
   setStatus('Opening WebAuth…');
   try{
@@ -114,21 +129,22 @@ document.getElementById('connect').onclick=async()=>{
     setStatus('Wallet connected. Pick a tier to pay.','ok');
   }catch(e){setStatus('Connect cancelled or failed: '+(e?.message||e),'err');}
 };
-async function pay(t){
-  if(Number(t.amount)<=0){setStatus('That tier has no final price yet.','err');return;}
+async function payWith(t, tok, amount){
+  if(Number(amount)<=0){setStatus('That tier has no final price yet.','err');return;}
   if(!session){setStatus('Connect your WebAuth wallet first.','err');return;}
-  if(t.tok===METAL && !METAL.enabled){setStatus('METAL payments are not enabled yet.','err');return;}
+  if(tok===METAL && !METAL.enabled){setStatus('METAL payments are not enabled yet.','err');return;}
   const email=document.getElementById('email').value.trim();
   if(!email){setStatus('Enter your email so your license can be activated.','err');return;}
   const actor=session.auth.actor.toString(), perm=session.auth.permission.toString();
   const memo=`cx1:botblockk:${t.id}:${email}`;
-  const action={account:t.tok.contract,name:'transfer',authorization:[{actor,permission:perm}],
-    data:{from:actor,to:CONFIG.payTo,quantity:q(t.tok,t.amount),memo}};
-  setStatus(`Approve ${q(t.tok,t.amount)} in your wallet…`);
+  const quantity=q(tok,amount);
+  const action={account:tok.contract,name:'transfer',authorization:[{actor,permission:perm}],
+    data:{from:actor,to:CONFIG.payTo,quantity,memo}};
+  setStatus(`Approve ${quantity} in your wallet…`);
   try{
     const r=await session.transact({actions:[action]},{broadcast:true});
     const id=r?.processed?.id||r?.transaction_id||'(submitted)';
-    setStatus(`Paid ✓ — ${q(t.tok,t.amount)}. Tx ${String(id).slice(0,12)}… You'll be activated shortly.`,'ok');
+    setStatus(`Paid ✓ — ${quantity}. Tx ${String(id).slice(0,12)}… You'll be activated shortly.`,'ok');
   }catch(e){setStatus('Payment cancelled or failed: '+(e?.message||e),'err');}
 }
 </script>

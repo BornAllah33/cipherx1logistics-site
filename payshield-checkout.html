@@ -42,8 +42,18 @@
   </div>
 
   <div class="card">
-    <div class="tier"><div class="t"><b>PayShield Plus</b><span>Household &amp; freelance · monthly</span></div><div class="amt">$4/mo</div></div>
-    <div class="tier"><div class="t"><b>PayShield Pro</b><span>Small business &amp; developer SDK · monthly</span></div><div class="amt">$17/mo</div></div>
+    <div class="tier"><div class="t"><b>PayShield Plus</b><span>Household &amp; freelance · monthly · $4/mo</span></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="pay" data-usd="4" data-id="plus" data-tok="XPR">XPR</button>
+        <button class="pay" data-usd="4" data-id="plus" data-tok="XMD">Metal $</button>
+        <button class="pay" data-usd="4" data-id="plus" data-tok="XUSDC">USDC</button>
+      </div></div>
+    <div class="tier"><div class="t"><b>PayShield Pro</b><span>Small business &amp; developer SDK · monthly · $17/mo</span></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="pay" data-usd="17" data-id="pro" data-tok="XPR">XPR</button>
+        <button class="pay" data-usd="17" data-id="pro" data-tok="XMD">Metal $</button>
+        <button class="pay" data-usd="17" data-id="pro" data-tok="XUSDC">USDC</button>
+      </div></div>
 
     <button class="connect" id="connect">Connect WebAuth to pay in XPR</button>
     <div class="me" id="me" style="display:none"></div>
@@ -65,11 +75,32 @@
 const CONFIG = {
   appName: 'PayShield',
   requestAccount: 'yacubai',
+  payTo: 'yacubai',
   chainId: '384da888112027f0321850a169f737c33e53b388aad48b5adace4bab97f437e0',
   endpoints: ['https://proton.greymass.com','https://proton.eosusa.io','https://api.protonnz.com'],
 };
 const statusEl=document.getElementById('status'), meEl=document.getElementById('me');
 const setStatus=(m,k='')=>{statusEl.textContent=m;statusEl.className='status '+k;};
+const TOKENS={XPR:{contract:'eosio.token',symbol:'XPR',precision:4},XMD:{contract:'xmd.token',symbol:'XMD',precision:6},XUSDC:{contract:'xtokens',symbol:'XUSDC',precision:6}};
+let xprUsd=0.0025, session=null;
+async function loadRate(){ try{const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=xpr-network&vs_currencies=usd',{cache:'no-store'});const j=await r.json();const v=j?.['xpr-network']?.usd;if(v>0)xprUsd=v;}catch(_){} }
+const fmtT=(a,t)=>`${Number(a).toFixed(t.precision)} ${t.symbol}`;
+async function pay(usd, tierId, tokKey){
+  if(!session){ setStatus('Connect your WebAuth wallet first.','err'); return; }
+  const email=document.getElementById('email').value.trim();
+  if(!email){ setStatus('Enter your email so your license can be activated.','err'); return; }
+  const t=TOKENS[tokKey];
+  const amount=(tokKey==='XPR')? usd/xprUsd : usd;
+  const actor=session.auth.actor.toString(), perm=session.auth.permission.toString();
+  const quantity=fmtT(amount,t);
+  const action={account:t.contract,name:'transfer',authorization:[{actor,permission:perm}],
+    data:{from:actor,to:CONFIG.payTo,quantity,memo:`cx1:payshield:${tierId}:${email}`}};
+  setStatus(`Approve ${quantity} in your wallet…`);
+  try{ const r=await session.transact({actions:[action]},{broadcast:true});
+    const id=r?.processed?.id||r?.transaction_id||'(submitted)';
+    setStatus(`Paid ✓ — ${quantity}. Tx ${String(id).slice(0,12)}… Activating shortly.`,'ok');
+  }catch(e){ setStatus('Payment cancelled or failed: '+(e?.message||e),'err'); }
+}
 document.getElementById('payCard').onclick=()=>setStatus('Card checkout opens here once the Stripe subscription links are set.','');
 import { ConnectWallet } from 'https://cdn.jsdelivr.net/npm/@proton/web-sdk@4.2.16/+esm';
 document.getElementById('connect').onclick=async()=>{
@@ -79,11 +110,13 @@ document.getElementById('connect').onclick=async()=>{
       linkOptions:{endpoints:CONFIG.endpoints,chainId:CONFIG.chainId,restoreSession:false},
       selectorOptions:{appName:CONFIG.appName,enabledWalletTypes:['webauth','proton']},
       transportOptions:{requestAccount:CONFIG.requestAccount}});
-    const actor=res.session.auth.actor.toString();
+    session=res.session; const actor=session.auth.actor.toString();
     meEl.style.display='block'; meEl.textContent='✓ Connected as @'+actor;
     setStatus('Wallet connected. XPR amount is converted from the USD price at checkout.','ok');
   }catch(e){ setStatus('Connect cancelled or failed: '+(e?.message||e),'err'); }
 };
+document.querySelectorAll('.tier button[data-tok]').forEach(b=>{ b.onclick=()=>pay(Number(b.dataset.usd), b.dataset.id, b.dataset.tok); });
+loadRate();
 </script>
 </body>
 </html>
