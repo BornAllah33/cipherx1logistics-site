@@ -32,11 +32,12 @@ ul{margin:0;padding-left:1.1em} li{margin:.4em 0;color:#d6d8e6}
 <div class="grid">
   <div class="card"><h2>What it does</h2><ul><li>WebAssembly isolation — untrusted agent code runs with no ambient authority</li>
 <li>Deny-by-default capability + policy engine</li>
-<li>Kernel syscall monitoring (eBPF) — observe, never hide</li>
+<li>Kernel syscall monitoring (eBPF) — observe, never hide <i>(advanced Linux build — coming to the download)</i></li>
 <li>Tamper-evident SHA-256 hash-chained audit</li>
 <li>Adaptive anomaly detection + circuit breaker</li>
-<li>YubiKey hardware root of trust (touch-to-sign)</li>
-<li>Embed anywhere via a stable C ABI</li></ul></div>
+<li>YubiKey hardware root of trust (touch-to-sign) <i>(coming to the download)</i></li>
+<li>Embed anywhere via a stable C ABI — library + header included</li>
+<li>Run any .wasm / .wat agent in the sandbox from Mission Control or the <code>rust-matrix-engine</code> command</li></ul></div>
   <div class="card demo"><h2>See it run</h2><video src="media/rust-matrix-cockpit-demo.mp4" poster="media/rust-matrix-cockpit-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Rust Matrix cockpit demo — live policy gate, audit chain, anomaly breaker and operator kill" style="width:100%;display:block;border-radius:14px;border:1px solid #23233a"></video></div>
 </div>
 <p class="foot">Built by CipherX1Logistics · 8, Build or Destroy — peace!<br><span style="opacity:.65;font-size:.92em">Architected &amp; developed by CipherX1 Logistics. Custom hardened Rust — forbid(unsafe_code), deny-panics, tested and reproducible. AI accelerated the build; the architecture and the custom Rust are human-directed.</span></p>
