@@ -146,7 +146,7 @@ async function sendTransfer(t, amount, planId){
   try{
     const r = await session.transact({actions:[action]},{broadcast:true});
     const id = r?.processed?.id || r?.transaction_id || '(submitted)';
-    setStatus(`Paid ✓ — ${qty}. Tx ${String(id).slice(0,12)}… Activating shortly.`,'ok');
+    setStatus(`Paid ✓ — ${qty}. Tx ${String(id).slice(0,12)}… Last step: open RugAlert, type @${actor} into its license box and press Activate.`,'ok');
   }catch(e){ setStatus('Payment cancelled or failed: '+(e?.message||e),'err'); }
 }
 // Pro ($4 USD): stablecoins 1:1, XPR at live rate
