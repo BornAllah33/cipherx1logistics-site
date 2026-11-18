@@ -54,8 +54,6 @@
     <div class="me" id="me" style="display:none"></div>
     <div class="status" id="status"></div>
 
-    <label for="email">Email (goes in the memo so your license is activated)</label>
-    <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
 
     <div id="tiers"></div>
   </div>
@@ -178,11 +176,9 @@ document.getElementById('connect').onclick = async () => {
 
 async function pay(t, tok, amount) {
   if (!session) { setStatus('Connect your WebAuth wallet first.', 'err'); return; }
-  const email = document.getElementById('email').value.trim();
-  if (!email) { setStatus('Enter your email so your license can be activated.', 'err'); return; }
   const actor = session.auth.actor.toString();
   const perm  = session.auth.permission.toString();
-  const memo = `cx1:keyguardian:${t.id}:${email}`;
+  const memo = `cx1:keyguardian:${t.id}`;
   const quantity = fmt(tok, amount);
   const action = {
     account: tok.contract,

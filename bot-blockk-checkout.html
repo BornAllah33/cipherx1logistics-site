@@ -44,8 +44,6 @@
     <div class="me" id="me" style="display:none"></div>
     <div class="status" id="status"></div>
 
-    <label for="email">Email (goes in the memo so your license is activated)</label>
-    <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
 
     <label for="product">License</label>
     <select id="product"><option value="botlock">BotLock</option></select>
@@ -133,10 +131,8 @@ async function payWith(t, tok, amount){
   if(Number(amount)<=0){setStatus('That tier has no final price yet.','err');return;}
   if(!session){setStatus('Connect your WebAuth wallet first.','err');return;}
   if(tok===METAL && !METAL.enabled){setStatus('METAL payments are not enabled yet.','err');return;}
-  const email=document.getElementById('email').value.trim();
-  if(!email){setStatus('Enter your email so your license can be activated.','err');return;}
   const actor=session.auth.actor.toString(), perm=session.auth.permission.toString();
-  const memo=`cx1:botblockk:${t.id}:${email}`;
+  const memo=`cx1:botblockk:${t.id}`;
   const quantity=q(tok,amount);
   const action={account:tok.contract,name:'transfer',authorization:[{actor,permission:perm}],
     data:{from:actor,to:CONFIG.payTo,quantity,memo}};

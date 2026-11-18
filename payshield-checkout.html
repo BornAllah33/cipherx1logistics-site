@@ -59,14 +59,12 @@
     <div class="me" id="me" style="display:none"></div>
     <div class="status" id="status"></div>
 
-    <label for="email">Email (for your license + receipts)</label>
-    <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
     <div style="margin-top:12px"><button class="pay" id="payCard">Pay by card →</button></div>
   </div>
 
   <div class="foot">
     Card subscriptions bill automatically via Stripe. XPR is non-custodial — you sign your own transfer in your
-    own wallet to <code>yacubai</code> (converted from USD at checkout by the price oracle); put your email in the memo.
+    own wallet to <code>yacubai</code> (converted from USD at checkout by the price oracle). No email or name needed — your wallet account is your license.
     <br><br>PayShield never holds your keys or funds, and never sees your documents.
   </div>
 </div>
@@ -87,14 +85,12 @@ async function loadRate(){ try{const r=await fetch('https://api.coingecko.com/ap
 const fmtT=(a,t)=>`${Number(a).toFixed(t.precision)} ${t.symbol}`;
 async function pay(usd, tierId, tokKey){
   if(!session){ setStatus('Connect your WebAuth wallet first.','err'); return; }
-  const email=document.getElementById('email').value.trim();
-  if(!email){ setStatus('Enter your email so your license can be activated.','err'); return; }
   const t=TOKENS[tokKey];
   const amount=(tokKey==='XPR')? usd/xprUsd : usd;
   const actor=session.auth.actor.toString(), perm=session.auth.permission.toString();
   const quantity=fmtT(amount,t);
   const action={account:t.contract,name:'transfer',authorization:[{actor,permission:perm}],
-    data:{from:actor,to:CONFIG.payTo,quantity,memo:`cx1:payshield:${tierId}:${email}`}};
+    data:{from:actor,to:CONFIG.payTo,quantity,memo:`cx1:payshield:${tierId}`}};
   setStatus(`Approve ${quantity} in your wallet…`);
   try{ const r=await session.transact({actions:[action]},{broadcast:true});
     const id=r?.processed?.id||r?.transaction_id||'(submitted)';

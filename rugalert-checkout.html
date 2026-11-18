@@ -45,8 +45,6 @@
     <div class="me" id="me" style="display:none"></div>
     <div class="status" id="status"></div>
 
-    <label for="email">Email (goes in the memo so your license activates)</label>
-    <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
 
     <div style="margin-top:14px">
       <div style="font-size:13px;color:#cfcfe6;margin-bottom:6px">Pay Pro with (stablecoins are 1:1 USD)</div>
@@ -135,13 +133,11 @@ document.getElementById('connect').onclick = async () => {
 
 async function sendTransfer(t, amount, planId){
   if(!session){ setStatus('Connect your WebAuth wallet first.','err'); return; }
-  const email=document.getElementById('email').value.trim();
-  if(!email){ setStatus('Enter your email so your license can be activated.','err'); return; }
   const actor=session.auth.actor.toString(), perm=session.auth.permission.toString();
   const qty=fmtT(amount,t);
   const action={ account:t.contract, name:'transfer',
     authorization:[{actor,permission:perm}],
-    data:{ from:actor, to:CONFIG.payTo, quantity:qty, memo:`cx1:rugalert:${planId}:${email}` } };
+    data:{ from:actor, to:CONFIG.payTo, quantity:qty, memo:`cx1:rugalert:${planId}` } };
   setStatus(`Approve ${qty} in your wallet…`);
   try{
     const r = await session.transact({actions:[action]},{broadcast:true});
