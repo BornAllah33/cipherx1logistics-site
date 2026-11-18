@@ -62,7 +62,7 @@
 
   <div class="foot">
     <b>Watch is free</b> — download KeyGuardian and guard one account with live detection and alerts, no payment.
-    Paid tiers add hardware-sealed auto-rotation and quorum.
+    Paid tiers add YubiKey-signed emergency rotation.
     Non-custodial: you sign your own transfer in your own wallet; this page never touches your keys.
     Payments land at <code>yacubai</code> on XPR Network. The XPR amount is computed live so it always matches the price shown.
     <br><br>All tiers can be paid in <b>XPR</b>, <b>Metal Dollar (XMD)</b>, or <b>USDC</b> — stablecoins are charged 1:1 USD. Lifetime also accepts <b>METAL</b>.
@@ -109,7 +109,7 @@ async function loadRate() {
 // Lifetime also accepts a fixed METAL amount.
 const TIERS = [
   { id:'guardian',   name:'Guardian',            note:'per month · up to 3 accounts', usd:4,
-    anchor:'AWS charges ~$1 per key/month just to rotate on a timer. This is hardware rotation + quorum + PQ-ready.' },
+    anchor:'AWS charges ~$1 per key/month just to rotate on a timer. This is YubiKey-signed rotation + PQ-ready.' },
   { id:'enterprise', name:'Guardian Enterprise', note:'per month · unlimited + fleets + PQ', usd:44,
     anchor:'MPC & custody platforms run hundreds to thousands a month.' },
   { id:'lifetime',   name:'Lifetime',            note:'one-time · founding guardians · yours forever', usd:288,
@@ -194,7 +194,7 @@ async function pay(t, tok, amount) {
   try {
     const r = await session.transact({ actions: [action] }, { broadcast: true });
     const id = r?.processed?.id || r?.transaction_id || '(submitted)';
-    setStatus(`Paid ✓ — ${quantity}. Tx ${String(id).slice(0,12)}… You'll be activated shortly.`, 'ok');
+    setStatus(`Paid ✓ — ${quantity}. Tx ${String(id).slice(0,12)}…  Last step: open KeyGuardian, click Activate and enter your account @${actor}.`, 'ok');
   } catch (e) {
     setStatus('Payment cancelled or failed: ' + (e?.message || e), 'err');
   }
