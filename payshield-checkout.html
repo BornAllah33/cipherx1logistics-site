@@ -55,6 +55,9 @@
         <button class="pay" data-usd="17" data-id="pro" data-tok="XUSDC">USDC</button>
       </div></div>
 
+    <div style="font-size:12px;line-height:1.5;color:#ffd60a;border:1px solid #5a4a00;border-radius:10px;padding:8px 10px;margin:0 0 12px">🛡️ <b>Scam warning:</b> CipherX1 never sends you tokens, airdrops or "claim" links, and never asks for your private key or 12 words. Only pay from this page, only to <b>yacubai</b>. If a tiny transfer shows up in your wallet with a link or a lookalike name, ignore it — that's how drain scams start.</div>
+    <label for="actcode">Activation code — open the app after installing; it's shown next to Activate. No email, no name.</label>
+    <input id="actcode" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" maxlength="24" style="font-family:monospace;letter-spacing:1px">
     <button class="connect" id="connect">Connect WebAuth to pay in XPR</button>
     <div class="me" id="me" style="display:none"></div>
     <div class="status" id="status"></div>
@@ -89,8 +92,9 @@ async function pay(usd, tierId, tokKey){
   const amount=(tokKey==='XPR')? usd/xprUsd : usd;
   const actor=session.auth.actor.toString(), perm=session.auth.permission.toString();
   const quantity=fmtT(amount,t);
+  const code=(document.getElementById('actcode').value||'').replace(/[^0-9a-fA-F]/g,'').toLowerCase(); if(code.length!==16){ setStatus('Paste the activation code from the app first — open the app, it is shown next to Activate.','err'); return; }
   const action={account:t.contract,name:'transfer',authorization:[{actor,permission:perm}],
-    data:{from:actor,to:CONFIG.payTo,quantity,memo:`cx1:payshield:${tierId}`}};
+    data:{from:actor,to:CONFIG.payTo,quantity,memo:`cx1:payshield:${tierId}:${code}`}};
   setStatus(`Approve ${quantity} in your wallet…`);
   try{ const r=await session.transact({actions:[action]},{broadcast:true});
     const id=r?.processed?.id||r?.transaction_id||'(submitted)';

@@ -1,0 +1,10 @@
+Origin: CipherX1 Logistics
+Label: CipherX1 Logistics
+Suite: stable
+Codename: stable
+Architectures: amd64
+Components: main
+Date: Wed, 18 Nov 2026 18:19:02 UTC
+SHA256:
+ 45edc39ff96f2ad85bb9bd0913fa189848cbd421dc6f8b8169c6c1e443e7d82f 3941 main/binary-amd64/Packages
+ 921518736e88e3a43f681576399568248bb00f4c031341cec1dac2aec8660fec 1716 main/binary-amd64/Packages.gz
