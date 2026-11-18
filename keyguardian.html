@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KeyGuardian — Runtime Key-Rotation Guard</title>
-<meta name="description" content="KeyGuardian protects your XPR Network accounts: the instant an unauthorized change is detected, it rotates your key to safety through a hardware root of trust and an M-of-N approval — non-custodial, bare-metal, post-quantum ready.">
+<meta name="description" content="KeyGuardian watches your XPR Network accounts' on-chain authority and alerts you the instant an unauthorized change appears. Guardian adds YubiKey-signed emergency rotation — non-custodial, bare-metal.">
 <style>
   :root{
     --bg:#000;--card:#0b0d11;--line:#1c2028;--ink:#f5f7fa;--dim:#8b93a1;--gold:#ffd60a;--ok:#30d158;--pq:#0a84ff;
@@ -85,7 +85,7 @@
   </svg>
   <h1><span class="brand">KeyGuardian</span></h1>
   <div class="tagl">Runtime Key-Rotation Guard · XPR Network L1</div>
-  <p class="lead">Your automated accounts are only as safe as their keys. KeyGuardian watches them around the clock and, the moment an unauthorized change appears, <b>rotates your key to safety</b> — through your own hardware, before anyone can take control. Non-custodial, bare-metal, post-quantum ready.</p>
+  <p class="lead">Your automated accounts are only as safe as their keys. KeyGuardian watches them around the clock and, the moment an unauthorized change appears, <b>raises the alarm</b> — on your own machine, showing exactly which keys or thresholds changed. With Guardian, one tap on your YubiKey rotates the attacker out. Non-custodial, bare-metal, post-quantum ready.</p>
   <div class="badges">
     <span class="badge">🛡️ <b>Hardware-rooted</b></span>
     <span class="badge">🔑 <b>Non-custodial</b></span>
@@ -106,7 +106,7 @@
     <h2>What It Protects You From</h2>
     <div class="mission">
       <p>When a wallet, a trading pool, or an autonomous agent runs on its own, the key that controls it is the whole game. If an attacker slips in an unauthorized key or quietly lowers a signing threshold, they can drain the account before a human ever notices.</p>
-      <p>KeyGuardian stands watch over that exact moment. It continuously checks your account's on-chain authority, and the instant something is wrong it <b>signs a new key and swaps the old one out</b> — in under a second, approved by a quorum of your own co-signers and sealed by a hardware key you hold. The attacker is left holding a key that no longer works.</p>
+      <p>KeyGuardian stands watch over that exact moment. It continuously checks your account's on-chain authority, and the instant something is wrong it <b>alerts you with exactly what changed</b> — the added key, the lowered threshold, the stranger delegated in — and seals it into a tamper-evident record. With Guardian, one tap on the YubiKey you hold signs an emergency rotation that swaps the compromised keys for your backup key, so the attacker is left with a key that no longer works.</p>
       <p><b>It never holds your keys.</b> It never moves your funds. It only ever rotates <b>your</b> account to a key <b>you</b> control — on <b>your</b> machine.</p>
     </div>
   </section>
@@ -114,9 +114,9 @@
   <section class="sec">
     <h2>How It Guards</h2>
     <div class="grid">
-      <div class="pr"><h3><span>🛡️</span>Hardware root of trust</h3><p>Every rotation is signed by your YubiKey — a physical touch. The signing key lives in hardware and never touches software. Nothing rotates without you.</p></div>
-      <div class="pr"><h3><span>👥</span>M-of-N approval</h3><p>No single compromise can rotate anything. A rotation needs a quorum of your co-signers to approve first — 2-of-3 by default, your call.</p></div>
-      <div class="pr pqc"><h3><span>⚛️</span>Post-quantum upgrade</h3><p>Rotate an at-risk classical key straight to a post-quantum scheme (ML-DSA). The "record now, break later" threat is answered before it arrives.</p></div>
+      <div class="pr"><h3><span>🛡️</span>Hardware root of trust</h3><p>Rotations are signed by your YubiKey — the signing key lives in hardware and never touches software. Deny by default: every account starts as alert-only, and nothing rotates unless you turn it on.</p></div>
+      <div class="pr"><h3><span>👥</span>M-of-N approval</h3><p>No single compromise can rotate anything. A rotation needs a quorum of your co-signers to approve first — 2-of-3 by default, your call. <i>Coming soon.</i></p></div>
+      <div class="pr pqc"><h3><span>⚛️</span>Post-quantum ready</h3><p>KeyGuardian ships a working hybrid signer — classical ed25519 plus post-quantum ML-DSA-65 (FIPS 204), self-tested every launch. XPR accounts can't hold post-quantum keys yet; when the chain supports them, KeyGuardian is ready.</p></div>
       <div class="pr"><h3><span>🧾</span>Tamper-evident record</h3><p>Every decision is sealed into a SHA-256 hash chain. After any incident you can prove exactly what was seen and done — and that the record wasn't edited.</p></div>
       <div class="pr"><h3><span>⏱️</span>Clock-tamper proof</h3><p>Moving a clock can't disarm it. A time anomaly freezes the guard and demands hardware re-authentication — it never quietly goes dark.</p></div>
       <div class="pr"><h3><span>🦀</span>Bare-metal, never panics</h3><p>Zero-allocation Rust with checked arithmetic throughout. A guard that crashes is a guard that failed — so this one is built not to.</p></div>
@@ -128,8 +128,8 @@
     <div class="steps">
       <div class="step"><div class="n">1</div><div class="t"><b>Watch</b><p>KeyGuardian continuously reads your account's authority on XPR L1 — keys, thresholds, permissions — on your own machine.</p></div></div>
       <div class="step"><div class="n">2</div><div class="t"><b>Detect</b><p>An unauthorized key or a lowered threshold appears. KeyGuardian flags it the instant it forms.</p></div></div>
-      <div class="step"><div class="n">3</div><div class="t"><b>Approve</b><p>Your co-signers approve the emergency rotation (M-of-N), and your YubiKey seals it with a touch.</p></div></div>
-      <div class="step"><div class="n">4</div><div class="t"><b>Rotate &amp; prove</b><p>A new key — optionally post-quantum — takes over on-chain in under a second, and the whole event is sealed into the audit chain.</p></div></div>
+      <div class="step"><div class="n">3</div><div class="t"><b>Decide</b><p>Deny by default — you choose per account: alert only, one tap on your YubiKey, or fully automatic (only for a YubiKey slot set up to sign unattended).</p></div></div>
+      <div class="step"><div class="n">4</div><div class="t"><b>Rotate &amp; prove</b><p>Your backup key takes over on-chain, KeyGuardian confirms the change landed, and the whole event is sealed into the audit chain.</p></div></div>
     </div>
   </section>
 
@@ -146,14 +146,14 @@
       <div class="plan">
         <div class="nm">🛡️ Guardian</div>
         <div class="amt">$4<small> / month</small></div>
-        <ul><li>Guard up to 3 accounts</li><li>Hardware-sealed auto-rotation</li><li>2-of-3 quorum</li><li>Tamper-evident audit chain</li><li>72-hour grace window</li></ul>
+        <ul><li>Guard up to 3 accounts</li><li>YubiKey-signed emergency rotation</li><li>2-of-3 quorum (coming soon)</li><li>Tamper-evident audit chain</li><li>72-hour grace window</li></ul>
         <a class="cta" href="keyguardian-checkout.html">Get Guardian</a>
-        <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">AWS charges ~$1 per key/month just to rotate on a timer. This is hardware rotation + quorum for $4 flat.</div>
+        <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">AWS charges ~$1 per key/month just to rotate on a timer. Hardware rotation for $4 flat.</div>
       </div>
       <div class="plan">
         <div class="nm">⚛️ Enterprise</div>
         <div class="amt">$44<small> / month</small></div>
-        <ul><li>Unlimited accounts + fleets</li><li>Post-quantum key upgrades</li><li>Custom M-of-N quorum</li><li>SIEM-ready audit export</li><li>Priority rotation lanes</li></ul>
+        <ul><li>Unlimited accounts + fleets</li><li>Post-quantum hybrid signer (ML-DSA-65)</li><li>Custom M-of-N quorum (coming soon)</li><li>SIEM-ready audit export</li><li>Priority rotation lanes (coming soon)</li></ul>
         <a class="cta" href="keyguardian-checkout.html">Get Enterprise</a>
         <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">MPC &amp; custody platforms run hundreds to thousands a month. You'll think we forgot a zero.</div>
       </div>
