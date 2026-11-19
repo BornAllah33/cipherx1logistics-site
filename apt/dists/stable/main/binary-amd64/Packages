@@ -1,33 +1,33 @@
 Package: agentic-rust-coding-loop
-Version: 0.1.0+202611191624
+Version: 0.1.0+202611191800
 Architecture: amd64
-Installed-Size: 4493
+Installed-Size: 4545
 Maintainer: King Power Allah
 Priority: optional
 Depends: libwebkit2gtk-4.1-0, libgtk-3-0
 Description: Agentic Rust Coding Loop — C/C++ to Rust, the agentic coding loop
  (none)
-Filename: pool/main/agentic-rust-coding-loop_0.1.0+202611191624_amd64.deb
-Size: 1719916
-MD5sum: 5b47cc7abb592c28c02975cbcdb30eb6
-SHA256: 72869fcfe01705fd035be09ea3bd0c93cce840b223caa80b3dd631b17602ab79
+Filename: pool/main/agentic-rust-coding-loop_0.1.0+202611191800_amd64.deb
+Size: 1734522
+MD5sum: 39d04091b122cda8238a16792ed7cd5c
+SHA256: 74922a8b15cdf9a5dd981e3b78c85bcbfaa5797fd9884fa99e0f821f42fcfe94
 
 Package: bot-blockk
-Version: 1.0.0+202611191624
+Version: 1.0.0+202611191800
 Architecture: amd64
-Installed-Size: 19486
+Installed-Size: 31030
 Maintainer: King Power Allah <CipherX1Logistics>
 Priority: optional
 Depends: libwebkit2gtk-4.1-0, libgtk-3-0
-Description: Bot Blockk — The Ignition Switch for Safe AI
- (none)
-Filename: pool/main/bot-blockk_1.0.0+202611191624_amd64.deb
-Size: 4419416
-MD5sum: 29dcdb5649340bdb091892246144869a
-SHA256: 77d8431c18eb5186f3982194fab9d9f79279938685435aae4ee8ae46e2e3750c
+Description: Local firewall for AI agents & crypto malware
+ Bot Blockk stops AI agents and malware before they do damage: wallet drains, key theft and destructive commands. Every new program and script is checked against crypto-malware rules (wallet stealers, seed-phrase thieves, clipboard swappers) the moment it starts, and a built-in file scanner checks anything you download. Everything runs on your computer; nothing is uploaded. By CipherX1 Logistics.
+Filename: pool/main/bot-blockk_1.0.0+202611191800_amd64.deb
+Size: 9181530
+MD5sum: 359540e84b94031dd364e7b5cfdc932a
+SHA256: 9b2e74d64c8cef553fe466f33bc21ee88e9c6180d65942e2d57af5fb4fe19c6a
 
 Package: keyguardian
-Version: 0.1.0+202611191624
+Version: 0.1.0+202611191800
 Section: utils
 Priority: optional
 Architecture: amd64
@@ -39,27 +39,27 @@ Description: KeyGuardian - runtime key-rotation guard for XPR Network L1
  unauthorized change appears. With Guardian, one tap on your YubiKey signs an
  emergency rotation that moves the account to your backup key. Non-custodial:
  it never holds your keys or moves funds. Opens the local cockpit in your browser.
-Filename: pool/main/keyguardian_0.1.0+202611191624_amd64.deb
-Size: 1086008
-MD5sum: be9b776a8dfa722a0cd7135e3d1454f3
-SHA256: 0fbb42862c3edad2e9f26e2045c950be0081b00be87360619a13ebfe0dc8a462
+Filename: pool/main/keyguardian_0.1.0+202611191800_amd64.deb
+Size: 1082894
+MD5sum: 0c81de11e6f70538db9e755fc9247202
+SHA256: f4e81b494b5b0994b6248eba5f1028ac5e7c21e3cf898ce7ae1ec8109bd470dc
 
 Package: pay-shield
-Version: 1.0.0+202611191624
+Version: 1.0.0+202611191800
 Architecture: amd64
-Installed-Size: 19439
+Installed-Size: 9990
 Maintainer: King Power Allah <CipherX1Logistics>
 Priority: optional
 Depends: libwebkit2gtk-4.1-0, libgtk-3-0
 Description: PayShield — The Clear Check for Every Invoice
  (none)
-Filename: pool/main/pay-shield_1.0.0+202611191624_amd64.deb
-Size: 4398366
-MD5sum: 55b1855027d44480ef42e1e550e1f13d
-SHA256: 1c6f1b965fc15d1f824d60ba16abafcceadc2f06eacdc9edcd48296f9c07ed64
+Filename: pool/main/pay-shield_1.0.0+202611191800_amd64.deb
+Size: 3352654
+MD5sum: 418e4cd61b7c020c453ba28db7dbd617
+SHA256: 5388d5bc1f9d0dfb674421a3f123f999d21f47d66f01c9745a11f61072f419a1
 
 Package: rugalert
-Version: 0.1.0+202611191624
+Version: 0.1.0+202611191800
 Section: utils
 Priority: optional
 Architecture: amd64
@@ -72,19 +72,19 @@ Description: RugAlert - rug-pull risk scanner for XPR Network
  bot oracle (/oracle) + on-demand scan (/scan). Explainable and fail-safe: it
  never issues a CRITICAL call on data it could not fully read. Non-custodial -
  never signs, holds a key, or moves funds.
-Filename: pool/main/rugalert_0.1.0+202611191624_amd64.deb
-Size: 853350
-MD5sum: 44928b77b2f09b69a6eaf9ee1ddc3cba
-SHA256: e247bee22fd7e61b79c10793333b43801b9c18c14e38034ccab367499f553a52
+Filename: pool/main/rugalert_0.1.0+202611191800_amd64.deb
+Size: 862736
+MD5sum: 933295c9eb67b403565f75b1eb52c2ff
+SHA256: 925c6b453fb62565c2daaecebae905adb44b25f569e0aea94256ddfd4b0c5a56
 
 Package: rust-matrix-console
-Version: 1.0.0+202611191624
+Version: 1.0.0+202611191800
 Section: utils
 Priority: optional
 Architecture: amd64
 Depends: xdg-utils, curl
 Maintainer: King Power Allah <CipherX1Logistics>
-Installed-Size: 19764
+Installed-Size: 19664
 Description: Rust Matrix - secure sandbox + Mission Control for AI agents
  Includes the Rust Matrix engine: untrusted agent code (.wasm/.wat) runs in a
  WebAssembly sandbox with nothing granted (deny-by-default), memory and time
@@ -92,8 +92,8 @@ Description: Rust Matrix - secure sandbox + Mission Control for AI agents
  browser) gates agent actions, trips an anomaly circuit-breaker, and has an
  operator kill. Command line: rust-matrix-engine. C library and header for
  embedding: /usr/lib/rust-matrix/librust_matrix.so, /usr/include/rust_matrix.h.
-Filename: pool/main/rust-matrix-console_1.0.0+202611191624_amd64.deb
-Size: 6621688
-MD5sum: 7aef2cccf2b9302f0ba219f03965d763
-SHA256: c2a98d5a05e61e8be0d5eceeee9baf97d3f5ca352fad396ced6bc6a2c14a6276
+Filename: pool/main/rust-matrix-console_1.0.0+202611191800_amd64.deb
+Size: 6605966
+MD5sum: 97ab6ea2aa01d41476afabdbcf5f61f6
+SHA256: 965c9389d994408938c37523864ab8de1447b0ab611dcc0d5bbafc4b3bf2f503
 

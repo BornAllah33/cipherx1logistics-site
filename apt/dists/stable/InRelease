@@ -7,14 +7,14 @@ Suite: stable
 Codename: stable
 Architectures: amd64
 Components: main
-Date: Thu, 19 Nov 2026 16:25:02 UTC
+Date: Thu, 19 Nov 2026 18:06:06 UTC
 SHA256:
- 4870ea0e83afe3c7579930901a58eed5c7fb1f4a53f3d14df7dd697e16abda97 3941 main/binary-amd64/Packages
- b2ba70d878d67050e248b9f3fa32dc776d1704c2260f2bebba12d2eee6893f34 1712 main/binary-amd64/Packages.gz
+ db48afd0d2a6895b155760118a9fbdeb97502b0c1d6de2534c37f52f1983f2ae 4331 main/binary-amd64/Packages
+ b492a1e662996dc858e010d0cf257dedbc81e38cf142d222028da9764105c202 1914 main/binary-amd64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQRAQUnfzY2FBn3y/OMO5OxIYzw+5wUCav8i3gAKCRAO5OxIYzw+
-5+0MAQCyLQt/k8dtzxfZyq7lbRSMUYSyGAqoJE3N4SxBDbHmmwD/W5ItvAcd9R+L
-BrbS3xz0l+FNS4Qba+kwk6BOlKmBvQs=
-=9hbC
+iHUEARYKAB0WIQRAQUnfzY2FBn3y/OMO5OxIYzw+5wUCav86jgAKCRAO5OxIYzw+
+553GAP9WrDTB/t4mw5TKOvD4dREyHgO6Sfg+hSy4TciXqr9ImAD9HOoQIQOPiEhy
+FPvES5om1aKlbPfnwcidbqT3gSkLrQo=
+=cNA6
 -----END PGP SIGNATURE-----
