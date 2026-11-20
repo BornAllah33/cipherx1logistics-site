@@ -63,7 +63,7 @@
   <p class="lead">Fake invoices and swapped bank-routing numbers drain billions a year — a scammer changes one
   number on a PDF and the money's gone. PayShield checks every invoice, statement, receipt, email, scanned check, image bill, HTML, CSV or vendor sheet
   <b>right on your own machine</b>: it seals the file with un-forgeable SHA-256, scans it for scam signals,
-  and warns you the instant the account number — or crypto wallet — isn't the one you expected. One click. Nothing leaves your device. It even covers the documents you get <b>KYC'd</b> for — IDs, proof of address, pay stubs, tax forms — so you can seal and verify them locally before you ever upload them. Universal safety for everyday users, built to survive the great wealth transfer. <b>Nothing else does all of this.</b></p>
+  and warns you the instant the account number — or crypto wallet — isn't the one you expected. And when a screenshot, photo or scanned ID says it was <b>made by AI</b>, PayShield tells you — confirmed from the image's own AI label, never a guess. One click. Nothing leaves your device. It even covers the documents you get <b>KYC'd</b> for — IDs, proof of address, pay stubs, tax forms — so you can seal and verify them locally before you ever upload them. Universal safety for everyday users, built to survive the great wealth transfer.</p>
 
   <div class="who">
     <span class="chip">For <b>households &amp; freelancers</b></span>
@@ -83,6 +83,7 @@
         <li>Drop a file → instant "safe to pay" or "do not pay yet"</li>
         <li>Type the routing number you expect — it warns on a swap</li>
         <li>Verify a sender's seal to confirm nothing changed in transit</li>
+        <li>Drop a screenshot or photo — it says "AI-generated" when the image's own label confirms it</li>
         <li>Plain-English warnings, a downloadable receipt, no jargon</li>
       </ul>
     </div>
@@ -93,7 +94,8 @@
         <li>Documents wiped from memory after every check — nothing lingers in RAM</li>
         <li>Real SHA-256 crypto seals + a compile-time integrity canary</li>
         <li>Non-custodial payments — never holds your keys or funds</li>
-        <li>Optional YubiKey approval (hardware root of trust)</li>
+        <li><b>AI-image check:</b> reads Content Credentials (C2PA) &amp; IPTC AI labels plus Stable Diffusion settings — and a missing label never counts as "real"</li>
+        <li>Optional YubiKey approval (hardware root of trust) — coming in a future update</li>
         <li>Catches swapped <b>crypto wallet</b> addresses (ETH/BTC), not just bank routing</li>
         <li>Seal &amp; verify your <b>KYC</b> docs (ID, proof of funds) locally before uploading</li>
         <li><b>Agent gate:</b> built for agentic AI — gates the <i>payment action</i>, not just LLM text</li>
@@ -111,6 +113,7 @@
         <li>Seal + scan every incoming bill</li>
         <li>Expected-number swap protection</li>
         <li>Verify-a-seal for files you receive</li>
+        <li>AI-image check for screenshots, photos &amp; IDs</li>
         <li>Sign your outgoing invoices with a trust badge</li>
         <li>100% local &amp; private</li>
       </ul>
@@ -127,7 +130,7 @@
         <li>Everything in Plus</li>
         <li>Watch a folder — every new invoice dropped in is checked automatically</li>
         <li>Agent-gate API on your own machine — an AI agent must get a "safe" verdict before it pays</li>
-        <li>Optional YubiKey approval on every release</li>
+        <li>Optional YubiKey approval on every release (coming soon)</li>
         <li>SDK + the self-test endpoint</li>
       </ul>
       <a class="cta" href="https://buy.stripe.com/9B6cN60BWakM3E6dwp0sU09">Get Pro — $17/mo →</a>
