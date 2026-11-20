@@ -30,6 +30,20 @@
   .sec{padding:40px 0 10px}
   .sec h2{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#cfd4de;text-align:center;margin-bottom:10px}
   .sec .sh{max-width:720px;margin:0 auto 24px;text-align:center;color:#c2c7d0;font-size:15.5px}
+  .plain{max-width:760px;margin:16px auto 0;font-size:25px;font-weight:900;line-height:1.25;color:#fff}
+  .avail{display:inline-block;margin-top:14px;border:1px solid var(--gold);color:#fff;border-radius:999px;padding:8px 16px;font-size:14px;background:#0a0c10}
+  .avail b{color:var(--gold)}
+  .lane{font-size:22px;font-weight:900;text-align:center;margin:4px 0 14px;line-height:1.3}
+  .lane span{background:var(--spec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .need{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  @media(max-width:700px){.need{grid-template-columns:1fr}}
+  .need a{display:flex;justify-content:space-between;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:#dfe3ea;text-decoration:none;font-size:14.5px}
+  .need a:hover{border-color:var(--gold)}
+  .need a b{color:var(--gold);white-space:nowrap}
+  .price{margin-top:12px;font-size:13px;font-weight:700;color:var(--gold)}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px}
+  .faq summary{cursor:pointer;font-weight:800;color:#fff;font-size:15px}
+  .faq details p{color:#c9cdd6;font-size:14.5px;margin-top:8px}
   /* mission */
   .mission{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 26px;position:relative;overflow:hidden;margin-top:8px}
   .mission::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--spec)}
@@ -71,14 +85,16 @@
   <img class="logo" src="icon.png" alt="CipherX1 Logistics">
   <h1><span class="brand">CipherX1 Logistics</span></h1>
   <div class="tagl">Agentic-AI Security</div>
-  <div style="margin-top:12px;font-size:15px;color:#c9cdd6">Agentic Consultant for Security, Logistics &amp; Finance</div>
-  <p class="lead">We build the security layer for the age of autonomous AI — Rust-native apps for <b>logistics</b> and <b>finance</b> that run entirely on your own hardware. Local, private, non-custodial. <b>Defense-grade — and it just works.</b></p>
+  <div style="margin-top:12px;font-size:15px;color:#c9cdd6">Agentic Consultant for Security, Logistics, Healthcare &amp; Finance</div>
+  <p class="plain">Built to stop rogue AI bots and crypto scams before they reach your money.</p>
+  <p class="lead">We build the security layer for the age of autonomous AI — Rust-native apps for <b>logistics</b>, <b>healthcare</b> and <b>finance</b> that run entirely on your own hardware. Local, private, non-custodial. <b>Defense-grade — and it just works.</b></p>
   <div class="badges">
     <span class="badge">🦀 <b>Rust-native</b></span>
     <span class="badge">🔒 <b>Local &amp; private</b></span>
     <span class="badge">🛡️ <b>Non-custodial</b></span>
     <span class="badge">🤖 <b>Built for agentic AI</b></span>
   </div>
+  <div class="avail">Works on <b>Windows, Mac &amp; Linux</b> · Try it <b>free</b> — 8-day trials, no email, no account</div>
   <div class="pay">Accepted: <span>Card</span><span>XPR ⚛️</span><span>METAL Ⓜ️</span></div>
 </header>
 
@@ -92,7 +108,18 @@
     <div class="mission">
       <p>AI agents are starting to run real operations — moving money, touching files, executing commands, signing transactions. The moment you hand an agent that power, a single bad instruction can drain a wallet, leak a key, or wipe a drive. The tools to <b>watch and contain</b> that power didn't exist yet.</p>
       <p>CipherX1 Logistics builds them. We make <b>defense-grade security and utility software</b> that sits between autonomous AI and the real world — on <b>your</b> machine, under <b>your</b> control. No cloud, no middleman, no trust required. We gate the <b>action</b>, not just the text: what an agent is about to <i>do</i> is checked before it can happen.</p>
-      <p>Our focus is <b>logistics, finance, and healthcare</b> — the places where an automated mistake costs real money or exposes private data — but everything we ship works for anyone who runs AI near something that matters.</p>
+      <p>Our focus is <b>logistics, healthcare, and agentic finance — traditional finance, DeFi, and post-quantum-secured</b> — the places where an automated mistake costs real money or exposes private data — but everything we ship works for anyone who runs AI near something that matters.</p>
+    </div>
+  </section>
+
+  <!-- OUR LANE -->
+  <section class="sec">
+    <h2>Our Lane</h2>
+    <p class="lane">Others secure the rails. <span>We secure the people and the AI agents riding them.</span></p>
+    <div class="mission">
+      <p>Blockchains, exchanges and infrastructure security protect the <b>networks</b> — the chains, the bridges, the contracts. That work matters. But it can't see what happens on <b>your machine</b>: a poisoned instruction your agent obeys, a stealer that grabs your keys, a swapped wallet address on an invoice, a token built to rug.</p>
+      <p>That's our lane. CipherX1 protects <b>the AI agents themselves and the people who own them</b> — on their own hardware, at the exact moment an action is about to happen. Every product we ship is built for <b>agentic AI use</b>: a person, a team, or an autonomous agent acting on someone's behalf.</p>
+      <p>The rails keep the network honest. <b>We keep the agent — and its owner — safe on it.</b> Built for the agentic era from day one.</p>
     </div>
   </section>
 
@@ -107,6 +134,19 @@
     </div>
   </section>
 
+  <!-- WHICH ONE -->
+  <section class="sec">
+    <h2>Which One Do I Need?</h2>
+    <div class="need">
+      <a href="bot-blockk.html">My family or my AI agents run on this computer <b>Bot Blockk →</b></a>
+      <a href="payshield.html">I pay invoices or send crypto to people <b>PayShield →</b></a>
+      <a href="rugalert.html">I trade tokens on XPR <b>RugAlert →</b></a>
+      <a href="keyguardian.html">I hold crypto on XPR and fear a takeover <b>KeyGuardian →</b></a>
+      <a href="rust-matrix.html">I build or run AI agents <b>Rust Matrix →</b></a>
+      <a href="agentic-rust-coding-loop.html">I have old code to bring into Rust <b>Agentic Rust Coding Loop →</b></a>
+    </div>
+  </section>
+
   <!-- PRODUCTS -->
   <section class="sec">
     <h2>The Suite</h2>
@@ -115,40 +155,46 @@
         <div class="nm">Rust Matrix</div>
         <div class="sub">Secure sandbox for AI agents</div>
         <p>Runs untrusted agent code in a <b>WebAssembly sandbox</b> with nothing granted — deny-by-default, memory and time caps, a tamper-evident audit chain, and an operator kill switch in Mission Control. <b>Free on System76 computers.</b></p>
+        <div class="price">Free 8-day trial · from $17.45 · free on System76 computers</div>
         <a class="cta" href="rust-matrix.html">Get Rust Matrix →</a>
       </div>
       <div class="card">
         <div class="nm">Bot Blockk</div>
         <div class="sub">Local firewall for AI agents &amp; crypto malware</div>
         <p>Stops an AI agent <b>before</b> it does something dangerous — a wallet drain, a key grab, a destructive command — with a loud <b>BOT BLOKKED</b> alert. Checks every new program against crypto-malware rules (wallet stealers, seed-phrase thieves, clipboard swappers) the moment it starts, and scans any file on your own computer — never uploaded. Protects families, developers and agent fleets.</p>
+        <div class="price">Free 8-day trial · from $4.04/mo</div>
         <a class="cta" href="bot-blockk.html">Get Bot Blockk →</a>
       </div>
       <div class="card">
         <div class="nm">PayShield</div>
         <div class="sub">Invoice &amp; KYC scam checker</div>
-        <p>Checks every invoice, statement, receipt or KYC document on your machine. Seals it with SHA-256 and warns you the instant an account number — or crypto wallet — isn't the one you expected. Stop swap scams cold.</p>
+        <p>Checks every invoice, statement, receipt or KYC document on your machine. Seals it with SHA-256 and warns you the instant an account number — or crypto wallet — isn't the one you expected. Catch a swapped number before you pay.</p>
+        <div class="price">Free 8-day trial · from $4/mo</div>
         <a class="cta" href="payshield.html">Get PayShield →</a>
       </div>
       <div class="card">
         <div class="nm">KeyGuardian</div>
         <div class="sub">Runtime key-rotation guard · XPR L1</div>
         <p>Watches your account's on-chain authority and, the instant a takeover forms, <b>rotates your key to safety</b> — sealed with a touch of your own YubiKey. Non-custodial. <b>Free to Watch, $4/mo to Guard.</b></p>
+        <div class="price">Free forever to Watch · $4/mo to Guard</div>
         <a class="cta" href="keyguardian.html">Get KeyGuardian →</a>
       </div>
       <div class="card">
         <div class="nm">RugAlert</div>
         <div class="sub">Rug-pull risk scanner · Simple DEX · XPR L1</div>
         <p>Reads the public chain and flags the conditions that make a rug possible — unlocked liquidity, live owner keys, concentrated holders, shady deployers — <b>before a bot ever enters the pool</b>. Read-only, explainable. <b>Free to scan, $4/mo for the live bot oracle.</b></p>
+        <div class="price">Free forever to scan · $4/mo Pro</div>
         <a class="cta" href="rugalert.html">Get RugAlert →</a>
       </div>
       <div class="card">
         <div class="nm">Agentic Rust Coding Loop</div>
         <div class="sub">C/C++, COBOL, Go &amp; Python → Rust</div>
-        <p>An agent that translates legacy code into clean, modern Rust — bring old systems into a safe, fast, memory-secure future. For teams modernizing the stack behind logistics and finance.</p>
-        <a class="cta" href="agentic-rust-coding-loop.html">Explore →</a>
+        <p>An agent that translates legacy code into clean, modern Rust — bring old systems into a safe, fast, memory-secure future. For teams modernizing the stack behind logistics, healthcare and finance.</p>
+        <div class="price">Free 8-day trial · from $17 one-time · free on System76 computers</div>
+        <a class="cta" href="agentic-rust-coding-loop.html">Get Agentic Rust Coding Loop →</a>
       </div>
     </div>
-    <p class="tiny">Each product runs 100% locally. Desktop today — phone &amp; tablet coming.</p>
+    <p class="tiny">Each product runs on your own computer — Windows, Mac &amp; Linux. Phone &amp; tablet coming.</p>
   </section>
 
   <!-- BUILT ON / RAILS -->
@@ -177,9 +223,19 @@
   <section class="sec">
     <h2>Security &amp; Compliance</h2>
     <div class="mission">
-      <p>CipherX1's architecture is <b>designed to align with NIST CSF 2.0</b> and the <b>control objectives of SOC 2 and ISO&nbsp;27001</b> — maintained with a documented security program, incident-response plan, and risk register. Access is protected by <b>FIDO2 hardware MFA</b>; license activation uses <b>hybrid post-quantum signatures</b> (ed25519 + ML-DSA-65, NIST&nbsp;FIPS&nbsp;204); products are <b>memory-safe Rust</b>, non-custodial, and reproducible.</p>
+      <p>CipherX1's architecture is <b>designed to align with NIST CSF 2.0</b> and the <b>control objectives of SOC 2 and ISO&nbsp;27001</b> — maintained with a documented security program, incident-response plan, and risk register. Access is protected by <b>FIDO2 hardware MFA</b>; license keys are signed with <b>hybrid post-quantum signatures</b> (ed25519 + ML-DSA-65, NIST&nbsp;FIPS&nbsp;204), and crypto purchases are verified directly on the public XPR chain; products are <b>memory-safe Rust</b> and non-custodial.</p>
       <p style="color:#9aa1ad">Independent audit (SOC&nbsp;2, ISO&nbsp;27001) will follow as we scale into it. We state alignment, not certifications we haven't earned — and we'll show you the control mapping.</p>
     </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec faq">
+    <h2>Questions</h2>
+    <details><summary>Is it safe to install?</summary><p>Yes. Every app is built by CipherX1 and downloads only from cipherx1logistics.com. Our Windows and Mac installers aren't code-signed yet (that's in progress), so Windows may say "unknown publisher" — click <b>More info → Run anyway</b>. On a Mac, if it's blocked the first time, go to <b>System Settings → Privacy &amp; Security → Open Anyway</b>.</p></details>
+    <details><summary>Why don't you ask for my email?</summary><p>Because we don't need it — and data we don't collect can never leak. No email, no account, no tracking. Your apps run on your machine, and crypto purchases are proven on the public chain — not stored in our database.</p></details>
+    <details><summary>How does the free trial work?</summary><p>Install Rust Matrix, Bot Blockk, PayShield or Agentic Rust Coding Loop and the 8-day trial starts on its own — core features, one trial per computer. After that it drops to a basic mode until you activate. KeyGuardian and RugAlert have free-forever tiers instead.</p></details>
+    <details><summary>What's an activation code?</summary><p>When you pay with crypto, each app shows a short code made just for your computer. Paste it at checkout and it goes with your payment, so your purchase unlocks <i>your</i> copy. Then press <b>Activate</b> in the app — it checks the public XPR chain and unlocks. Nothing else is sent.</p></details>
+    <details><summary>How do I know I'm on the real site?</summary><p>Only buy at <b>cipherx1logistics.com</b>. We will <b>never</b> DM you for payment, ask for your seed phrase or private key, or send you to another site to pay. Anyone who does is a scammer — report them.</p></details>
   </section>
 
   <!-- WHO IT'S FOR -->
@@ -207,7 +263,7 @@
 <footer>
   <div><span class="mark">CipherX1 Logistics</span> · Agentic-AI Security</div>
   <div style="margin-top:8px">Local · Private · Non-custodial · Card / XPR ⚛️ / METAL Ⓜ️</div>
-  <div style="margin-top:8px;color:#9aa1ad"><b style="color:#cdd2db">Architected &amp; developed by King Power Allah — CipherX1 Logistics.</b> Custom hardened Rust — <code style="color:#cdd2db">forbid(unsafe_code)</code>, deny-panics, tested and reproducible. AI accelerated the build; the architecture, the security doctrine, and the custom Rust are human-directed.</div>
+  <div style="margin-top:8px;color:#9aa1ad"><b style="color:#cdd2db">Architected &amp; developed by King Power Allah — CipherX1 Logistics.</b> Custom hardened Rust — our own app code compiles under <code style="color:#cdd2db">forbid(unsafe_code)</code>, with overflow-checked release builds and a passing test suite. AI accelerated the build; the architecture, the security doctrine, and the custom Rust are human-directed.</div>
   <div style="margin-top:8px;color:#9aa1ad">Founder trained in <b style="color:#cdd2db">Agentic AI</b> at <b style="color:#cdd2db">UC Berkeley Executive Education</b> — Haas School of Business, 2026.</div>
   <div style="margin-top:8px">8 — Build or Destroy — peace · <a href="https://x.com/cipherx1llc">@cipherx1llc</a></div>
   <div style="margin-top:14px;font-size:11px;color:#565c68;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.5">Rust is a trademark of the Rust Foundation. Pop!_OS is a trademark of System76, Inc. CipherX1 Logistics is an independent project, not affiliated with or endorsed by the Rust Foundation or System76.</div>
