@@ -7,14 +7,14 @@ Suite: stable
 Codename: stable
 Architectures: amd64
 Components: main
-Date: Fri, 20 Nov 2026 02:04:10 UTC
+Date: Fri, 20 Nov 2026 03:50:36 UTC
 SHA256:
- 40165941979956c52cd6227d7fe3035f32453e70b9bedb774a3372b9a151a892 4331 main/binary-amd64/Packages
- 2563d8cb11fcf14ad865e76aa7035e3d6691508c41109d3ae4df4e2a3cb11ea3 1926 main/binary-amd64/Packages.gz
+ 3e329c9006e93b0f8a7eecd7c92d07a910c3e269213595e0c16560137e71fc79 4332 main/binary-amd64/Packages
+ 221ede5f475c90f37a32f648ee61ed181183a34c89ff1648a59a086124464d90 1936 main/binary-amd64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQRAQUnfzY2FBn3y/OMO5OxIYzw+5wUCav+qmgAKCRAO5OxIYzw+
-59FNAQCTu1Afm0OuVT9OUSCTcGn7Gm4d23RDizzxRSGLlaITxgEA/dXbz6oXVUON
-sf+5tnqxmX4jySQfUyFobjEvj68wdAQ=
-=wYmx
+iHUEARYKAB0WIQRAQUnfzY2FBn3y/OMO5OxIYzw+5wUCav/DjAAKCRAO5OxIYzw+
+5yprAQCLQ0Bd864cYXSmNVcE15LvmCJ4OtzlxOoeD6Z+UYheRQEAqOjmNu6HVHde
+D8iDWIjQRi/riim2cC4D8aF4Nk9k6QM=
+=b/0t
 -----END PGP SIGNATURE-----
