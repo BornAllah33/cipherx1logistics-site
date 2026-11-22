@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fake Meeting Survival Guide — CipherX1 Logistics</title>
+<meta name="description" content="Spot fake job interviews, client calls and meeting invites before they take over your computer. Five red flags, three safe moves, and what to do if you already clicked. Free.">
+<style>
+  :root{--ink:#f5f7fa;--dim:#8b93a1;--line:#20242b;--card:#0c0e12;
+    --spec:linear-gradient(115deg,#e60000 0%,#ff7a00 14%,#ffd500 28%,#00b140 44%,#00a7b5 58%,#0b3fd6 72%,#3a1bb0 84%,#6e0a0a 100%);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter','Helvetica Neue',Arial,sans-serif;color:var(--ink);background:#000;line-height:1.55;padding:40px 18px 80px}
+  body::before{content:"";position:fixed;top:0;left:0;right:0;height:3px;background:var(--spec);z-index:10}
+  .wrap{max-width:760px;margin:0 auto}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  h1{background:var(--spec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-size:34px;font-weight:800;line-height:1.15;margin-bottom:10px}
+  .lead{color:#d5dae2;font-size:16px;margin-bottom:24px}
+  h2{font-size:19px;margin:30px 0 12px;color:#fff}
+  p,li{color:#d5dae2;font-size:15px}
+  b{color:#fff}
+  a{color:#ffd500}
+  code{background:#1b1630;padding:1px 6px;border-radius:4px;font-size:13px}
+  .flags{list-style:none;counter-reset:f}
+  .flags li{counter-increment:f;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:12px 14px 12px 52px;margin-bottom:10px;position:relative}
+  .flags li::before{content:counter(f);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:#e60000;color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+  .flags .ex{display:block;color:var(--dim);font-size:13px;margin-top:3px}
+  .safe{list-style:none}
+  .safe li{border-left:3px solid #00b140;padding:4px 0 4px 12px;margin-bottom:10px}
+  .card{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:18px 20px;margin-top:14px}
+  .card ol{padding-left:20px}
+  .card li{margin-bottom:6px}
+  .tool{border:1px solid #ffd500;border-radius:14px;padding:18px 20px;margin-top:26px;background:#0c0b05}
+  .tool h2{margin-top:0}
+  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .btn{display:inline-block;padding:10px 16px;border-radius:9px;font-weight:700;font-size:14px;text-decoration:none}
+  .btn.y{background:#ffd500;color:#111}
+  .btn.o{border:1px solid #2a2f3a;color:#f5f7fa}
+  .truth{margin-top:22px;font-size:14px;color:#cdd2db;border:1px dashed #2a2f3a;border-radius:12px;padding:12px 14px}
+  .foot{margin-top:36px;font-size:12px;color:#565c68;border-top:1px solid var(--line);padding-top:16px}
+  @page{size:letter;margin:0}
+  @media print{ .wrap{padding:9mm 12mm} .foot{margin-top:8px!important} }
+  @media print{
+    html,body{background:#000!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{padding:0}
+    body::before{display:none}
+    body{font-size:12px;line-height:1.38}
+    h1{font-size:24px!important;margin-bottom:4px;display:inline-block;padding:1px 0}
+    .lead{font-size:12.5px!important;margin-bottom:10px}
+    h2{font-size:14.5px!important;margin:12px 0 6px!important}
+    p,li{font-size:11px!important}
+    .flags li{padding:6px 10px 6px 40px!important;margin-bottom:5px!important}
+    .flags li::before{width:20px;height:20px;font-size:11px;left:10px;top:6px}
+    .flags .ex{font-size:10.5px!important}
+    .safe li{margin-bottom:5px!important;padding:2px 0 2px 10px}
+    .card,.tool{padding:9px 12px!important;margin-top:8px!important}
+    .card li{margin-bottom:2px!important}
+    .truth{margin-top:10px;padding:8px 10px}
+    .foot{margin-top:12px;padding-top:8px;font-size:9.5px}
+    .btns{display:none}
+    .noprint{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Free guide · CipherX1 Logistics</div>
+  <h1>Fake Meeting Survival Guide</h1>
+  <p class="lead">Job interviews, client calls, investor meetings, podcast invites — scammers use all of them to get you to install something on your own computer. A fake podcast host just tried it on me. Here's how to spot it in seconds. <span class="noprint"><a href="fake-meeting-guide.pdf" download>Download the PDF</a></span></p>
+
+  <h2>The 5 red flags</h2>
+  <ol class="flags">
+    <li><b>The meeting link is on a look-alike domain.</b>
+      <span class="ex">Real: <code>huddle01.com</code>, <code>huddle01.app</code>, <code>zoom.us</code>, <code>meet.google.com</code>. Fake: <code>huddle01.site</code>, <code>zoom-us.site</code>, <code>meet.google.com.verify-call.site</code>. Read the part right before the first <code>/</code>.</span></li>
+    <li><b>"Your device isn't supported — use Windows or Mac."</b>
+      <span class="ex">Real meeting apps run in any modern browser. Pushing you to a different computer often means their trap only works on that one.</span></li>
+    <li><b>"Download and install this to join."</b>
+      <span class="ex">A call never needs a file from the host's link. That download is the attack.</span></li>
+    <li><b>"Paste this command to fix your audio / camera."</b>
+      <span class="ex">If a page or a person tells you to paste something into Run, PowerShell or Terminal, it's taking over your computer.</span></li>
+    <li><b>Pressure to record your screen, or to book only through <i>their</i> scheduling link.</b>
+      <span class="ex">Your screen and camera can be reused to fool the next victim. A real recruiter, client or host is fine with your link.</span></li>
+  </ol>
+
+  <h2>The 3 safe moves</h2>
+  <ul class="safe">
+    <li><b>Make the link yourself.</b> Open the official meeting site by typing its address, create the room, and send <i>your</i> link. A real recruiter, client or host joins. A scammer makes excuses.</li>
+    <li><b>Never install anything to join a call.</b> Get apps only from the official site or your device's app store — never from a link someone sent you.</li>
+    <li><b>Never paste a command someone sent you.</b> No real meeting, website or support agent needs you to.</li>
+  </ul>
+
+  <h2>If you already clicked</h2>
+  <div class="card">
+    <ol>
+      <li><b>Don't open</b> anything you downloaded from the link, and don't run anything it asked for.</li>
+      <li><b>Run a full virus scan</b> (Windows Security, or your system's antivirus).</li>
+      <li><b>If you typed a password</b> on that page, change it from the real site or app — then turn on 2-step sign-in with an authenticator app or passkey.</li>
+      <li><b>If you ran a file or a command:</b> disconnect that computer from the internet, and from a different, clean device move your crypto to new wallets and change your important passwords.</li>
+      <li><b>Report and block</b> the account, and warn the company or person it claimed to be.</li>
+    </ol>
+  </div>
+
+  <div class="tool">
+    <h2>Check any meeting link — free</h2>
+    <p><b>PayShield</b> tells you if a meeting link is really on Zoom, Google Meet, Teams, Huddle01, StreamYard, Calendly and more — or on a look-alike domain. Paste it, see the answer. On your computer, nothing uploaded. <b>Bot Blockk</b> warns when a new download came from a look-alike meeting site, or when you copy a "paste this" command.</p>
+    <div class="btns">
+      <a class="btn y" href="payshield.html">Get PayShield</a>
+      <a class="btn o" href="bot-blockk.html">See Bot Blockk</a>
+    </div>
+    <p class="noprint" style="margin-top:10px;font-size:13px;color:var(--dim)">Download only from <b>cipherx1logistics.com</b> — never from a link in a DM.</p>
+  </div>
+
+  <div class="truth"><b>The honest part:</b> this is social engineering. It works on people, not computers, so no app can fully stop it. Knowing these signs does. Share this with anyone who's job hunting, freelancing or taking calls.</div>
+
+  <div class="foot">
+    Free to share. © 2026 CipherX1 Logistics · cipherx1logistics.com · Architected by King Power Allah. Meeting app names are trademarks of their owners and are used only to identify their official domains; CipherX1 Logistics is not affiliated with them.
+  </div>
+</div>
+</body>
+</html>
