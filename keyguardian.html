@@ -95,7 +95,7 @@
 </header>
 
 <div class="dlbar">
-  <a href="downloads/KeyGuardian_0.1.0_amd64.deb" download>⬇ Download KeyGuardian for Linux</a> <a href="downloads/windows/KeyGuardian_0.1.2_x64-setup.exe" download style="margin-left:8px">⬇ Windows</a> <a href="downloads/mac/KeyGuardian_0.1.2_x64.dmg" download style="margin-left:8px">⬇ Mac</a>
+  <a href="downloads/KeyGuardian_0.1.0_amd64.deb" download>⬇ Download KeyGuardian for Linux</a> <a href="downloads/windows/KeyGuardian_0.1.3_x64-setup.exe" download style="margin-left:8px">⬇ Windows</a> <a href="downloads/mac/KeyGuardian_0.1.3_x64.dmg" download style="margin-left:8px">⬇ Mac</a>
   <div class="n">Pop!_OS / Ubuntu (.deb) · free to Watch · $4/mo to Guard · your keys never leave your hardware<br>Windows 10/11 (.exe) &middot; if Windows says &ldquo;unknown publisher,&rdquo; click <b>More info &rarr; Run anyway</b><br>Mac (.dmg) &middot; open it, drag the app to Applications &middot; first launch: if macOS blocks it, go to <b>System Settings &rarr; Privacy &amp; Security &rarr; Open Anyway</b> &middot; signed versions coming soon</div>
 </div>
 
@@ -107,7 +107,7 @@
     <div class="mission">
       <p>When a wallet, a trading pool, or an autonomous agent runs on its own, the key that controls it is the whole game. If an attacker slips in an unauthorized key or quietly lowers a signing threshold, they can drain the account before a human ever notices.</p>
       <p>KeyGuardian stands watch over that exact moment. It continuously checks your account's on-chain authority, and the instant something is wrong it <b>alerts you with exactly what changed</b> — the added key, the lowered threshold, the stranger delegated in — and seals it into a tamper-evident record. With Guardian, one tap on the YubiKey you hold signs an emergency rotation that swaps the compromised keys for your backup key, so the attacker is left with a key that no longer works.</p>
-      <p><b>It never holds your keys.</b> It never moves your funds. It only ever rotates <b>your</b> account to a key <b>you</b> control — on <b>your</b> machine.</p>
+      <p><b>It never holds your wallet keys.</b> It never moves your funds. It only ever rotates <b>your</b> account to a key <b>you</b> control — on <b>your</b> machine.</p>
     </div>
   </section>
 
@@ -121,6 +121,7 @@
       <div class="pr"><h3><span>⏱️</span>Clock-tamper proof</h3><p>Moving a clock can't disarm it. A time anomaly freezes the guard and demands hardware re-authentication — it never quietly goes dark.</p></div>
       <div class="pr"><h3><span>🦀</span>Bare-metal, never panics</h3><p>Zero-allocation Rust with checked arithmetic throughout. A guard that crashes is a guard that failed — so this one is built not to.</p></div>
       <div class="pr"><h3><span>🗝️</span>API KeyGuard <small style="color:#9aa1ad;font-weight:400">(free in Watch)</small></h3><p>Scans a folder you pick for exposed API keys — Anthropic, OpenAI, GitHub, Stripe, AWS, Google, Slack, Hugging Face — and private-key files. Hits show only the key's prefix and last 4 characters. Track each key's expiry date (never the key itself) and get a heads-up 14 days out. All on your machine; nothing is uploaded.</p></div>
+      <div class="pr"><h3><span>🔐</span>Encrypted key vault <small style="color:#9aa1ad;font-weight:400">(free in Watch)</small></h3><p>Store your API keys encrypted on your own computer — XChaCha20-Poly1305 with an Argon2id-hardened passphrase, plus your YubiKey as an optional second lock. Full keys are never shown: Copy puts one on your clipboard and the cockpit clears it after 30 seconds. Locks itself after 5 minutes idle. API keys only — wallet keys and seed phrases are refused. No cloud, and no recovery: forget the passphrase and the vault can only be deleted.</p></div>
     </div>
   </section>
 
@@ -140,7 +141,7 @@
       <div class="plan">
         <div class="nm">🆓 Watch</div>
         <div class="amt">Free<small> forever</small></div>
-        <ul><li>Guard 1 account</li><li>Live takeover detection</li><li>Instant alerts</li><li>Read-only posture cockpit</li><li>API KeyGuard — exposed-key scan + expiry alerts</li></ul>
+        <ul><li>Guard 1 account</li><li>Live takeover detection</li><li>Instant alerts</li><li>Read-only posture cockpit</li><li>API KeyGuard — exposed-key scan + expiry alerts</li><li>Encrypted API key vault</li></ul>
         <a class="cta" href="downloads/KeyGuardian_0.1.0_amd64.deb" download>Download Free</a>
         <div style="font-size:11px;color:#6f7684;margin-top:9px;font-style:italic">Real key protection at $0 — no card, no catch.</div>
       </div>
