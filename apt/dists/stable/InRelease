@@ -7,14 +7,14 @@ Suite: stable
 Codename: stable
 Architectures: amd64
 Components: main
-Date: Sun, 22 Nov 2026 16:33:48 UTC
+Date: Wed, 25 Nov 2026 16:43:04 UTC
 SHA256:
- 52873ac43f4c515e29a2ed523a1ec516dd4b6962ed781a684ce75bf368ca377e 4332 main/binary-amd64/Packages
- 761cd494f59eda12f371fd5628877e9b9152747b2b48e75695ee387e917b08df 1935 main/binary-amd64/Packages.gz
+ 313d88d41c4e019a73387ac1f1c9441882e615776bb1da98602a54e5ee7c3f73 4332 main/binary-amd64/Packages
+ 8816fb5492f7f090a2fb42ff0f17c5ef32524fda9544f1dfaf9d1be94ee86245 1925 main/binary-amd64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQRAQUnfzY2FBn3y/OMO5OxIYzw+5wUCawMZbAAKCRAO5OxIYzw+
-56fjAQCXELrOmiTFrDjm9CWv9S1ScN2fHwmdDeYMor03UvfYdAD+N6AE1Jsscq8A
-BqErtAjgv+vsfb4SRVwR+n5M36SiKgM=
-=LHSb
+iHUEARYKAB0WIQRAQUnfzY2FBn3y/OMO5OxIYzw+5wUCawcQGAAKCRAO5OxIYzw+
+52x6AQDB2Ha0+8WhUEOjm+B0G98922tAsE7/tpnums9aHkZN5QEAx/nacu0USFR3
+3WsFVCjLf07ti3DOMVtK7fzQ8o07zwE=
+=+8HA
 -----END PGP SIGNATURE-----
